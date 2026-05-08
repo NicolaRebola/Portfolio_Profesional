@@ -63,13 +63,30 @@
     "description": "Where I've built things.",
     "items": {
       "data-analyst": {
-        "description": "Developed and maintained web applications using React and Node.js."
+        "summary": "Turned data into decisions and delivered dashboards that improved customer outcomes.",
+        "bullets": [
+          "Process optimization: created a standardized framework that reduced setup and implementation time by 40%.",
+          "Customer impact: improved satisfaction by 25% through interactive, customer-focused dashboards for 20+ clients.",
+          "Innovation: co-developed asset-tracking algorithms involving geolocation and triangulation."
+        ]
       },
       "full-stack-developer": {
-        "description": "Developed and maintained web applications using Angular and Node.js."
+        "summary": "Built and scaled MEAN applications, partnering with stakeholders to turn product goals into reliable systems.",
+        "bullets": [
+          "Led technical implementation of product initiatives and translated requirements into delivery plans.",
+          "Designed and developed scalable applications using Angular, Node.js, and MongoDB.",
+          "Built APIs and backend services for business-critical workflows; improved performance and code quality.",
+          "Collaborated with distributed teams in agile environments, contributing to architecture and product decisions."
+        ]
       },
       "tech-lead": {
-        "description": "Developed and maintained web applications using React and Node.js."
+        "summary": "Kept business, technology, and people aligned—bridging strategy and execution to ship production-ready AI solutions.",
+        "bullets": [
+          "Strategic direction: led the technological roadmap, transitioning experimental AI/LLM implementations into production-ready solutions.",
+          "Architecture: designed and oversaw systems using Node.js, Python, and MongoDB, ensuring performance and stability.",
+          "Mentorship: acted as a hands-on mentor, promoting design patterns and clean code to simplify complex integrations.",
+          "Systems thinking: implemented scalable architectures that adapt to evolving organizational needs."
+        ]
       }
     }
   },

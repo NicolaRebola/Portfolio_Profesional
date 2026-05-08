@@ -23,12 +23,12 @@ export default async function HomePage({ params }: { params: { lang: string } })
   const dict = getDictionary(lang);
   
   const getExperienceDescription = (itemId: ExperienceItemId) => {
-    return dict.experience.items[itemId].description;
+    return dict.experience.items[itemId];
   }
 
   const mappedExperience = experience.map((item) => ({
     ...item,
-    description: getExperienceDescription(item.itemId)
+    content: getExperienceDescription(item.itemId)
   }));
 
   const mappedStats = stats.map((s) => ({
@@ -55,14 +55,12 @@ export default async function HomePage({ params }: { params: { lang: string } })
         stats={mappedStats}
         pillars={dict.about.pillars}
       />
-      <Experience title={dict.experience.title} description={dict.experience.description} items={mappedExperience} />
-      <Stack title={dict.stack.title} description={dict.stack.description} items={stack} />
-      <Stats
-        title={dict.stats.title}
-        description={dict.stats.description}
-        items={stats}
-        labels={dict.stats.labels}
+      <Experience
+        title={dict.experience.title}
+        description={dict.experience.description}
+        items={mappedExperience}
       />
+      <Stack title={dict.stack.title} description={dict.stack.description} items={stack} />
       <Blog title={dict.blog.title} description={dict.blog.description} items={blog} />
       <Footer contacts={socialLinks} />
     </div>

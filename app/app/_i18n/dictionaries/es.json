@@ -63,13 +63,30 @@
     "description": "Donde he construido cosas.",
     "items": {
       "data-analyst": {
-        "description": "Desarrollo y mantenimiento de aplicaciones web utilizando React y Node.js."
+        "summary": "Convertí datos en decisiones y entregué dashboards que mejoraron resultados para clientes.",
+        "bullets": [
+          "Optimización de procesos: creé un framework estandarizado que redujo el tiempo de setup e implementación en un 40%.",
+          "Impacto en clientes: aumenté la satisfacción en un 25% con dashboards interactivos centrados en el usuario para más de 20 clientes.",
+          "Innovación: co-desarrollé algoritmos de tracking de activos con geolocalización y triangulación."
+        ]
       },
       "full-stack-developer": {
-        "description": "Desarrollo y mantenimiento de aplicaciones web utilizando Angular y Node.js."
+        "summary": "Construí y escalé aplicaciones MEAN, convirtiendo objetivos de producto en sistemas confiables junto a stakeholders.",
+        "bullets": [
+          "Lideré implementaciones técnicas de iniciativas de producto y traduje requerimientos en planes de entrega.",
+          "Diseñé y desarrollé aplicaciones escalables con Angular, Node.js y MongoDB.",
+          "Construí APIs y servicios backend para flujos críticos; trabajé en performance, calidad y escalabilidad.",
+          "Colaboré con equipos distribuidos en entornos ágiles, aportando a decisiones de arquitectura y producto."
+        ]
       },
       "tech-lead": {
-        "description": "Desarrollo y mantenimiento de aplicaciones web utilizando React y Node.js."
+        "summary": "Mantuve alineados negocio, tecnología y personas—conectando estrategia y ejecución para llevar IA a producción.",
+        "bullets": [
+          "Dirección estratégica: lideré el roadmap tecnológico, pasando de experimentos con IA/LLMs a soluciones listas para producción.",
+          "Arquitectura: diseñé y supervisé sistemas con Node.js, Python y MongoDB, asegurando performance y estabilidad.",
+          "Mentoría: acompañé a equipos como mentor hands-on, promoviendo patrones de diseño y clean code para simplificar integraciones.",
+          "Pensamiento sistémico: implementé arquitecturas escalables que se adaptan a necesidades organizacionales cambiantes."
+        ]
       }
     }
   },

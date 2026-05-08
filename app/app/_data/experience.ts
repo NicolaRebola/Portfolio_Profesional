@@ -4,16 +4,16 @@ export const experience: ExperienceItem[] = [
   {
     itemId: 'data-analyst',
     role: "Data Analyst",
-    period: "2021 - 2022"
+    period: "ago. 2021 - ago. 2022 · 1 año 1 mes"
   },
   {
     itemId: 'full-stack-developer',
     role: "Full Stack Developer (MEAN)",
-    period: "2022 - 2025"
+    period: "ago. 2022 - sept. 2025 · 3 años 2 meses"
   },
   {
     itemId: 'tech-lead',
     role: "Tech Lead / Software Architect",
-    period: "2025 - 2026"
+    period: "oct. 2025 - abr. 2026 · 7 meses"
   }
 ];
