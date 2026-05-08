@@ -1,7 +1,8 @@
 ---
-status: "Approved"
+status: "In progress"
 owner: "Nicola Rebola"
 created: 2026-05-07
+updated: 2026-05-08
 branch: "feature/landing-page"
 related_adrs:
   - "ADR-0001: Custom JSON dictionary loader for i18n"
@@ -18,25 +19,35 @@ pr: ""
 Deliver a bilingual (Spanish and English) landing page that introduces Nicola Rebola as a software engineer to recruiters, tech leads, and CEOs. The page is the entry point of the portfolio and must communicate, at a glance, who he is, his experience, his stack, and how to contact him. It is hosted on GitHub Pages as a fully static site.
 
 ## Acceptance Criteria
-- [ ] The page renders at `/es/` and `/en/` with content in the corresponding language; the root path (`/`) redirects to the user's preferred locale (or `/en/` as fallback).
-- [ ] All seven sections of the mockup are present and visually faithful: navigation, hero, about, experience timeline, stack, blog placeholders, and footer.
-- [ ] The contact email shown in the page and footer is `nicolarebola.dev@gmail.com` and is a valid `mailto:` link.
-- [ ] Blog placeholders are visible but **not clickable** (they are coming-soon cards, not real posts).
-- [ ] A language switcher in the navigation lets the user move between `/es/` and `/en/` while preserving the current section anchor when possible.
-- [ ] On both locales, `<html lang>` matches the route, and `<link rel="alternate" hreflang>` tags point to the other locale and to `x-default`.
-- [ ] Scroll-driven reveal animations play in supporting browsers and are disabled when `prefers-reduced-motion: reduce` is set.
-- [ ] The page is dark-themed only; CSS tokens (custom properties) are defined under `:root` to enable a future light theme without component-level changes.
-- [ ] On mobile (≤ 768 px), the navigation collapses into the same pattern shown in the mockup; all content is reachable without horizontal scroll.
-- [ ] The site builds with `npm run build` and produces a static `out/` directory that, when served, behaves as described above.
-- [ ] Lighthouse scores in mobile emulation for the deployed site are ≥ 90 in Performance, Accessibility, Best Practices, and SEO.
-- [ ] The mockup file `nicola_rebola_portfolio_preview.html` is removed in the final commit.
+- [x] The page renders at `/es/` and `/en/` with content in the corresponding language; the root path (`/`) redirects to **`/en/`** by default. *(`output: "export"` **disallows middleware** in Next.js 16; **`app/page.tsx`** is a small client redirect for `next dev`; **`postbuild`** overwrites `out/index.html` with meta refresh + link — see [ADR-0003](../adr/0003-postbuild-root-redirect.md). Browser locale detection for `/es/` is intentionally **not** implemented.)*
+- [x] All seven sections of the mockup are present: navigation, hero, about (including pillar tabs and stats), experience timeline, stack, blog placeholder, and footer.
+- [x] The contact email shown in the page and footer is `nicolarebola.dev@gmail.com` and is a valid `mailto:` link (via social/contact data).
+- [x] Blog area is a single non-navigating placeholder (coming-soon messaging), not clickable post cards.
+- [x] A language switcher in the navigation lets the user move between `/es/` and `/en/` using real navigations (`next/link`). *(Preserving the current hash/section anchor on switch is **not** implemented yet.)*
+- [ ] On both locales, `<html lang>` matches the route, and `<link rel="alternate" hreflang>` tags point to the other locale and to `x-default`. *(Layout sets `lang`; bilingual metadata / hreflang still to be wired — see Commit Plan step 13.)*
+- [ ] Scroll-driven reveal animations play in supporting browsers and are disabled when `prefers-reduced-motion: reduce` is set. *(Deferred — global styles do not yet include `animation-timeline: view()` per [ADR-0004](../adr/0004-css-scroll-driven-animations.md).)*
+- [~] The page is dark-themed only; CSS tokens (custom properties) exist under `:root` for fonts/colors. *(Landing is visually dark; full token architecture for a future light theme may still evolve.)*
+- [~] On mobile (≤ 768 px), all content is reachable without horizontal scroll; About pillars and stats grids wrap/stack. *(Responsive fixes applied: `min-w-0`, `overflow-x-hidden`, wrapping tabs.) Nav links are hidden until `md` — hamburger pattern from mockup **not** implemented.*
+- [x] The site builds with `npm run build` inside `app/` and produces a static `out/` directory suitable for static hosting.
+- [ ] Lighthouse scores in mobile emulation for the **deployed** site are ≥ 90 in Performance, Accessibility, Best Practices, and SEO.
+- [ ] The mockup file `nicola_rebola_portfolio_preview.html` is removed in the final commit *(file may still exist at repo root for reference — remove when closing the feature).*
+
+## Implementation notes (current codebase)
+These choices are intentionally **not** full ADRs; they follow from static export + reliability on slow mobile networks:
+
+1. **`LangSwitcher`** is a **Server Component** using **`next/link`** to `/${locale}/`. No `"use client"` and no `router.push`, so changing language works **without waiting for React hydration**.
+2. **`Nav`** receives **`lang`** from `[lang]/page.tsx` for active styling and accessibility (`aria-current`).
+3. **`AboutPillarsTabs`** uses native **radio inputs + labels** and Tailwind **`group-has-[#id:checked]`** to toggle panels. Tab switching works **without JavaScript**, avoiding “dead clicks” before hydration.
+4. **Layout shell** (`[lang]/layout.tsx`): outer wrapper uses **`overflow-x-hidden`** (not `overflow-hidden`) so vertical scroll is not clipped while reducing horizontal bleed on small viewports.
+5. **Stats**: pillar-aligned stats render **inside `About`**; `Stats.tsx` may exist as a reusable section but the home page wires stats through `About` props.
+6. **Root `/` → `/en/`**: **`app/layout.tsx`** provides the shared `<html>` / `<body>` shell (middleware is **not** compatible with `output: "export"`). **`app/page.tsx`** (`"use client"`) redirects via `location.replace` in dev and after hydration on static preview. **`npm run postbuild`** → **`scripts/generate-root-redirect.mjs`** overwrites **`out/index.html`** with **meta refresh** to `en/` for hosts without relying on JS. **`[lang]/layout.tsx`** mounts **`HtmlLang`** (`useLayoutEffect`) so **`document.documentElement.lang`** matches the route without a raw `<script>` inside the React tree (avoids hydration warnings). Default locale in **`_i18n/config.ts`** is **`en`**.
 
 ## Assumptions
 - Tailwind CSS v4 is already configured in the existing `app/` setup; we extend its tokens but do not migrate the framework.
 - Fonts are loaded via `next/font/google` (Syne, DM Sans, DM Mono) with `display: swap`; we accept the network round-trip cost in exchange for not self-hosting font files.
-- All copy (in both languages) lives in JSON dictionaries under `app/_i18n/dictionaries/` and is authored by the owner directly; no CMS.
-- Portfolio data (experience, stack, social links, stats, blog entries) lives in typed TypeScript modules under `app/_data/` rather than a backing service; this is a personal site and the data changes rarely.
-- The deploy URL is `https://<user>.github.io/Portfolio_Profesional/`, with `basePath` and `assetPrefix` already set in `next.config.ts`.
+- All copy (in both languages) lives in JSON dictionaries under `app/app/_i18n/dictionaries/` and is authored by the owner directly; no CMS.
+- Portfolio data (experience, stack, social links, stats, blog entries) lives in typed TypeScript modules under `app/app/_data/` rather than a backing service; this is a personal site and the data changes rarely.
+- The deploy URL is `https://<user>.github.io/Portfolio_Profesional/`, with `basePath` and `assetPrefix` already set in `app/next.config.ts`.
 - Videos are explicitly out of scope for this Spec (deferred to a later one); animations stay CSS-only.
 
 ## Out of Scope
@@ -49,126 +60,89 @@ Deliver a bilingual (Spanish and English) landing page that introduces Nicola Re
 - Additional locales beyond ES/EN.
 
 ## Architecture
-The landing page is built on Next.js App Router under `output: "export"`, hosted on GitHub Pages. Internationalization uses a dynamic `[lang]/` segment with `generateStaticParams` to produce one static HTML per locale (see [ADR-0002](../adr/0002-routing-lang-segment.md)), backed by a small custom JSON dictionary loader instead of a third-party i18n library (see [ADR-0001](../adr/0001-i18n-custom-loader.md)). Because the root path produces no page in this scheme, a postbuild Node script writes `out/index.html` with a `<meta refresh>` and a small `navigator.language` detection so visitors land on `/es/` or `/en/` (see [ADR-0003](../adr/0003-postbuild-root-redirect.md)).
+The landing page is built on Next.js App Router under `output: "export"`, hosted on GitHub Pages. Internationalization uses a dynamic `[lang]/` segment with `generateStaticParams` to produce one static HTML per locale (see [ADR-0002](../adr/0002-routing-lang-segment.md)), backed by a small custom JSON dictionary loader instead of a third-party i18n library (see [ADR-0001](../adr/0001-i18n-custom-loader.md)). Because static export does not emit a locale bundle at `/`, **`npm run postbuild`** runs `scripts/generate-root-redirect.mjs`, which writes **`out/index.html`** so the site root redirects to **`en/`** (relative URL; works under the `Portfolio_Profesional` GitHub Pages subpath). This **supersedes** the browser-locale detection described historically in [ADR-0003](../adr/0003-postbuild-root-redirect.md) for v1; Spanish remains available at `/es/`. **`app/page.tsx`** handles **`/`** in **`next dev`** (middleware cannot be used with **`output: "export"`**).
 
-Styling uses Tailwind CSS v4 with design tokens in `:root` that scope the dark palette, fonts, and motion tokens. Scroll-driven reveals and parallax effects are implemented with native CSS `animation-timeline: view()` inside `@supports` blocks and are disabled by `prefers-reduced-motion: reduce` (see [ADR-0004](../adr/0004-css-scroll-driven-animations.md)). The page is dark-only for v1, but token architecture leaves a clean migration path for a future light theme (see [ADR-0005](../adr/0005-dark-mode-only.md)).
+Styling uses Tailwind CSS v4 with tokens in `:root` / `@theme`. Scroll-driven reveals per [ADR-0004](../adr/0004-css-scroll-driven-animations.md) are **planned** but not necessarily present in `globals.css` yet. The page targets a dark presentation for v1 (see [ADR-0005](../adr/0005-dark-mode-only.md)).
 
-The page is composed of nine Server Components (Nav, Hero, About, Stats, Experience, Stack, Blog, Footer, plus the page shell) and one Client Component (`LangSwitcher`, which needs `useRouter`/`usePathname`). Portfolio data lives in typed modules under `app/_data/`; component props receive plain data, keeping i18n strings and content data orthogonal.
+Landing sections are implemented as **Server Components** where possible: **Nav**, **Hero**, **About** (including embedded stats grid), **Experience**, **Stack**, **Blog**, **Footer**, and **`LangSwitcher`** (links only). **AboutPillarsTabs** is also a Server Component (progressive enhancement). Portfolio data lives in typed modules under `app/app/_data/`; props carry resolved strings from `getDictionary(lang)`.
 
 ## File Structure
 ```
 app/
 ├── app/
+│   ├── layout.tsx                   (root `<html>` / fonts / globals.css)
+│   ├── page.tsx                     (client redirect `/` → `en/`)
 │   ├── [lang]/
-│   │   ├── layout.tsx              (created)
-│   │   ├── page.tsx                (created)
-│   │   └── not-found.tsx           (created)
+│   │   ├── layout.tsx               (visual shell + `<HtmlLang />`)
+│   │   ├── page.tsx
+│   │   └── not-found.tsx (if present)
 │   ├── _i18n/
-│   │   ├── config.ts               (created)
-│   │   ├── getDictionary.ts        (created)
+│   │   ├── config.ts
+│   │   ├── getDictionary.ts
 │   │   └── dictionaries/
-│   │       ├── es.json             (created)
-│   │       └── en.json             (created)
+│   │       ├── es.json
+│   │       └── en.json
 │   ├── _types/
-│   │   ├── i18n.ts                 (created)
-│   │   └── portfolio.ts            (created)
+│   │   ├── i18n.ts
+│   │   └── portfolio.ts
 │   ├── _data/
-│   │   ├── social.ts               (created)
-│   │   ├── stats.ts                (created)
-│   │   ├── experience.ts           (created)
-│   │   ├── stack.ts                (created)
-│   │   └── blog.ts                 (created)
+│   │   ├── social.ts
+│   │   ├── stats.ts
+│   │   ├── experience.ts
+│   │   ├── stack.ts
+│   │   └── blog.ts (optional / legacy if unused by page)
 │   ├── _components/
+│   │   ├── HtmlLang.tsx           (client — sync `<html lang>` via layoutEffect)
 │   │   └── landing/
-│   │       ├── Nav.tsx             (created)
-│   │       ├── LangSwitcher.tsx    (created, "use client")
-│   │       ├── Hero.tsx            (created)
-│   │       ├── About.tsx           (created)
-│   │       ├── Stats.tsx           (created)
-│   │       ├── Experience.tsx     (created)
-│   │       ├── Stack.tsx           (created)
-│   │       ├── Blog.tsx            (created)
-│   │       └── Footer.tsx          (created)
-│   ├── globals.css                 (modified — tokens, fonts, motion CSS)
-│   ├── layout.tsx                  (deleted — replaced by [lang]/layout.tsx)
-│   ├── page.tsx                    (deleted — replaced by [lang]/page.tsx)
-│   ├── sitemap.ts                  (created)
-│   └── robots.ts                   (created)
-├── public/
-│   ├── next.svg                    (deleted)
-│   ├── vercel.svg                  (deleted)
-│   ├── file.svg                    (deleted)
-│   ├── globe.svg                   (deleted)
-│   └── window.svg                  (deleted)
+│   │       ├── Nav.tsx
+│   │       ├── LangSwitcher.tsx      (Server Component — next/link)
+│   │       ├── Hero.tsx
+│   │       ├── About.tsx
+│   │       ├── AboutPillarsTabs.tsx (radio + label tabs; no "use client")
+│   │       ├── Stats.tsx            (optional standalone section)
+│   │       ├── Experience.tsx
+│   │       ├── Stack.tsx
+│   │       ├── Blog.tsx
+│   │       └── Footer.tsx
+│   └── globals.css
+├── next.config.ts
+├── package.json                   (includes postbuild hook)
 ├── scripts/
-│   └── generate-root-redirect.mjs  (created)
-└── package.json                    (modified — postbuild script)
+│   └── generate-root-redirect.mjs  (writes out/index.html → en/)
+└── public/
 
-nicola_rebola_portfolio_preview.html (deleted in final commit)
+nicola_rebola_portfolio_preview.html (repo root — remove when feature closed)
 ```
 
 ## Data Model / Contracts
-```ts
-export type Locale = "es" | "en";
-
-export type Dictionary = {
-  nav: { about: string; experience: string; stack: string; blog: string; contact: string };
-  hero: { eyebrow: string; title: string; subtitle: string; ctaPrimary: string; ctaSecondary: string };
-  about: { heading: string; paragraphs: string[] };
-  stats: { years: string; projects: string; companies: string };
-  experience: { heading: string };
-  stack: { heading: string };
-  blog: { heading: string; comingSoon: string };
-  footer: { rights: string; contactCta: string };
-};
-
-export type SocialLink = { id: string; label: string; href: string; icon: "github" | "linkedin" | "email" };
-
-export type Stat = { id: string; value: string; labelKey: keyof Dictionary["stats"] };
-
-export type ExperienceItem = {
-  id: string;
-  company: string;
-  role: { es: string; en: string };
-  period: { es: string; en: string };
-  description: { es: string; en: string };
-  tags: string[];
-};
-
-export type StackItem = { id: string; name: string; category: "frontend" | "backend" | "tooling" | "cloud" };
-
-export type BlogPlaceholder = {
-  id: string;
-  title: { es: string; en: string };
-  excerpt: { es: string; en: string };
-};
-```
+Authoritative TypeScript types and shapes live in **`app/app/_types/portfolio.ts`** (and related imports). Dictionary keys and nesting match **`getDictionary`** and **`es.json` / `en.json`**; keep locales in sync so the build fails fast on missing keys.
 
 ## Risks and Mitigations
 | Risk | Impact | Mitigation |
 |---|---|---|
 | `animation-timeline: view()` is unsupported on older Safari/Firefox; visitors see no animation | Low | Wrap effects in `@supports`; the static layout renders correctly without the effect. |
 | GitHub Pages serves under the `/Portfolio_Profesional/` subpath, breaking absolute asset URLs | High | `basePath` and `assetPrefix` are already configured; verify with a smoke test in the deploy workflow. |
-| Root URL hits a 404 because `[lang]/` produces no page at `/` | High | Postbuild script writes `out/index.html` with meta refresh + `navigator.language` detection ([ADR-0003](../adr/0003-postbuild-root-redirect.md)). |
+| Root URL hits a 404 because `[lang]/` produces no page at `/` | High | `postbuild` writes `out/index.html` with meta refresh to `en/`; ensure CI runs `npm run build` (includes `postbuild`). |
 | Fonts load late and trigger FOUT or LCP regressions | Medium | Use `next/font/google` with `display: swap` and preload only the hero typefaces; verify LCP in Lighthouse. |
-| Translation strings drift between dictionaries (a key exists in `es.json` but not in `en.json`) | Medium | TypeScript infers the `Dictionary` type from the dictionary shape; mismatched keys fail the build. |
-| Lighthouse SEO score drops because of missing `hreflang` or canonical URLs | Medium | `generateMetadata` emits `alternates.languages` and a canonical URL per locale; verified manually before merge. |
+| Translation strings drift between dictionaries | Medium | Type-check dictionary consumption; align keys across `es.json` and `en.json`. |
+| Lighthouse SEO score drops because of missing `hreflang` or canonical URLs | Medium | Implement `generateMetadata` + `alternates.languages`; verify in built HTML. |
+| Mobile users tap UI before hydration; client-only handlers feel broken | Medium | Prefer `<a>` / `<Link>` and native form controls for critical navigation (language switch, pillar tabs). |
 
 ## Commit Plan
 1. **docs(scaffolding): add docs/, ADR (MADR 4.0) and Spec templates** — done in Commit 1.
-2. **docs(landing): add SPEC-0001 and ADRs 0001-0005** — this commit; verify by opening each file and checking front matter and links.
-3. **chore(setup): add Syne/DM Sans/DM Mono via next/font, define design tokens, remove Geist and SVG boilerplate** — verify the existing page still builds with `npm run build` and the new tokens are visible in `:root`.
-4. **feat(i18n): add `[lang]/` routing, ES/EN dictionaries and postbuild root redirect script** — verify `/es/` and `/en/` render the placeholder layout and the root URL redirects correctly after `npm run build`.
-5. **feat(data): add typed portfolio data modules (experience, stack, social, stats, blog)** — verify types compile and dummy values render correctly when imported in a Server Component.
-6. **feat(landing): scaffold the nine landing components and wire them in `[lang]/page.tsx`** — verify each section appears in order on `/es/` and `/en/` even if visually unfinished.
-7. **feat(hero): build the hero (gradients, masked grid, CTAs, scroll indicator, pulse, bounce)** — verify the hero matches the mockup at desktop and mobile breakpoints.
-8. **feat(nav): build the fixed nav with backdrop blur and `LangSwitcher` Client Component, including `hreflang`** — verify language switching navigates between locales without losing the current section.
-9. **feat(about): build the About section with two columns and stats grid** — verify content renders from the dictionary and stats values come from `_data/stats.ts`.
-10. **feat(experience): build the vertical timeline with gradient rail and dots with halo** — verify all experience items from `_data/experience.ts` render in order.
-11. **feat(stack-blog-footer): build stack grid, non-clickable blog placeholders and footer with the correct email** — verify the email link opens a `mailto:` to `nicolarebola.dev@gmail.com`.
-12. **feat(motion): add scroll-driven reveal animations with `@supports` and `prefers-reduced-motion` fallbacks** — verify animations play in Chrome and the page is fully readable with reduced motion enabled.
-13. **feat(seo): add bilingual `generateMetadata`, `sitemap.ts`, and `robots.ts`** — verify the built `sitemap.xml` lists both locales and the metadata includes proper `hreflang` links.
-14. **chore(docs): remove the mockup HTML and update SPEC-0001 to `Status: Done`** — verify `nicola_rebola_portfolio_preview.html` no longer exists and the Spec front matter reflects the merged PR URL.
+2. **docs(landing): add SPEC-0001 and ADRs 0001-0005** — baseline spec.
+3. **chore(setup): add Syne/DM Sans/DM Mono via next/font, define design tokens, remove Geist and SVG boilerplate** — verify `npm run build`.
+4. **feat(i18n): add `[lang]/` routing, ES/EN dictionaries and postbuild root redirect** — verify `/es/` and `/en/`; verify **`/`** in **`next dev`** (`app/page.tsx`) and **`out/index.html`** after **`postbuild`**.
+5. **feat(data): add typed portfolio data modules** — verify types compile.
+6. **feat(landing): scaffold landing components and wire `[lang]/page.tsx`** — verify section order on both locales.
+7. **feat(hero): build the hero** — verify desktop and mobile breakpoints.
+8. **feat(nav): build fixed nav + language switch** — **implemented with `next/link` + server `LangSwitcher`**; optional follow-up: preserve `#hash` on locale change; mobile nav pattern per mockup.
+9. **feat(about): About + pillar tabs + stats grid** — **tabs via radios + `group-has`; responsive overflow fixes.**
+10. **feat(experience): vertical timeline** — verify items from `_data/experience.ts`.
+11. **feat(stack-blog-footer): stack, blog placeholder, footer** — verify `mailto:` target.
+12. **feat(motion): scroll-driven reveals + `prefers-reduced-motion`** — pending until CSS lands in `globals.css`.
+13. **feat(seo): bilingual `generateMetadata`, `sitemap.ts`, `robots.ts`** — pending as needed.
+14. **chore(docs): remove mockup HTML, set Spec `Status: Done`, link PR** — final cleanup.
 
 ## Links
 - [ADR-0001](../adr/0001-i18n-custom-loader.md) — i18n loader.
@@ -176,5 +150,5 @@ export type BlogPlaceholder = {
 - [ADR-0003](../adr/0003-postbuild-root-redirect.md) — root redirect.
 - [ADR-0004](../adr/0004-css-scroll-driven-animations.md) — animation strategy.
 - [ADR-0005](../adr/0005-dark-mode-only.md) — theming scope.
-- `nicola_rebola_portfolio_preview.html` — design mockup (removed in commit 14).
+- Repository [`README.md`](../../README.md) — overview of this repo and how to run the app.
 - PR — to be linked once the feature is merged and Status changes to Done.

@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
+/* Landing is dark-only (SPEC / ADR-0005); avoids SSR vs browser prefers-color-scheme drift on body */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 @theme inline {
@@ -13,15 +14,8 @@
   --font-syne: var(--font-syne);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
 }
