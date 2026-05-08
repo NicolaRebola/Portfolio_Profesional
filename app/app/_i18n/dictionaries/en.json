@@ -6,6 +6,19 @@
     "title": "About",
     "description": "Business first, technology second."
   },
+  "hero": {
+    "eyebrow": "Available for select projects",
+    "title": "Software Architect",
+    "subtitle": "Systems Thinker.",
+    "ctaPrimary": {
+      "label": "View my work ↓",
+      "href": "#experience"
+    },
+    "ctaSecondary": {
+      "label": "Get in touch",
+      "href": "mailto:nicolarebola.dev@gmail.com"
+    }
+  },
   "experience": {
     "title": "Experience",
     "description": "Where I've built things.",

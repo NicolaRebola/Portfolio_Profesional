@@ -5,7 +5,7 @@ export default function Experience(
 ) {
   
   return (
-    <section className="my-2">
+    <section id="experience" className="my-2">
       <h2 className="text-2xl font-bold">{title}</h2>
       <span className="text-gray-500 italic">{description}</span>
         {items.map((item: ExperienceItem & { description: string }) => (

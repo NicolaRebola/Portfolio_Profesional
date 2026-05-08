@@ -6,6 +6,19 @@
     "title": "Quién soy",
     "description": "Negocios primero, tecnología segundo."
   },
+  "hero": {
+    "eyebrow": "Disponible para proyectos selectos",
+    "title": "Arquitecto de Software",
+    "subtitle": "Pensador de sistemas.",
+    "ctaPrimary": {
+      "label": "Ver mi trabajo ↓",
+      "href": "#experience"
+    },
+    "ctaSecondary": {
+      "label": "Contactar",
+      "href": "mailto:nicolarebola.dev@gmail.com"
+    }
+  },
   "experience": {
     "title": "Experiencia",
     "description": "Donde he construido cosas.",

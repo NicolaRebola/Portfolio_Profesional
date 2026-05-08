@@ -4,7 +4,7 @@ export default function Stack(
   { title, description, items }: { title: string, description: string, items: StackItem[] }
 ) {
   return (
-    <section className="my-2">
+    <section id="stack" className="my-2">
       <h2 className="text-2xl font-bold">{title}</h2>
       <span className="text-gray-500 italic">{description}</span>
       <ul>

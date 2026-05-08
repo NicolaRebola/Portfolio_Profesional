@@ -5,7 +5,7 @@ export default function Footer(
   { contacts }: { contacts: SocialLink[] }
 ) {
   return (
-    <section className="my-2 border-t p-4 flex flex-row gap-4">
+    <section id="footer" className="my-2 border-t p-4 flex flex-row gap-4">
       {contacts.map((contact: SocialLink) => (
         <li key={contact.id} className="border-x mx-2 px-4">
           <Link href={contact.url}>{contact.label}</Link>
