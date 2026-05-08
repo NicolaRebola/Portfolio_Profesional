@@ -66,7 +66,7 @@ This makes the Spec the **living source of truth** for the feature: at any point
 
 | # | Title | Status | Created | Owner | Branch |
 |---|---|---|---|---|---|
-| — | (no specs yet) | — | — | — | — |
+| [SPEC-0001](./SPEC-0001-landing-page.md) | Bilingual landing page (ES/EN) | Approved | 2026-05-07 | Nicolás Rebola | `feature/landing-page` |
 
 Specs are added here as they are created.
 

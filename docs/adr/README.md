@@ -59,8 +59,13 @@ The living template is in [`0000-template.md`](./0000-template.md). Copy it and 
 | # | Title | Status | Date |
 |---|---|---|---|
 | [0000](./0000-template.md) | MADR Template | — | — |
+| [0001](./0001-i18n-custom-loader.md) | Use a custom JSON dictionary loader instead of next-intl | Accepted | 2026-05-07 |
+| [0002](./0002-routing-lang-segment.md) | Route i18n via `[lang]/` segment with `generateStaticParams` | Accepted | 2026-05-07 |
+| [0003](./0003-postbuild-root-redirect.md) | Generate a root-path redirect via a postbuild Node script | Accepted | 2026-05-07 |
+| [0004](./0004-css-scroll-driven-animations.md) | Use CSS-only scroll-driven animations with progressive enhancement | Accepted | 2026-05-07 |
+| [0005](./0005-dark-mode-only.md) | Ship dark mode only for v1, with tokens for a future light mode | Accepted | 2026-05-07 |
 
-The real ADRs (`0001` and onwards) are added as they are created.
+New ADRs are added here as they are created.
 
 ## References
 
