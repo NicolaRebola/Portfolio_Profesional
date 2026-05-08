@@ -1,5 +1,37 @@
 {
   "home": {
     "title": "Home Page"
+  },
+  "about": {
+    "title": "About"
+  },
+  "experience": {
+    "title": "Experience",
+    "items": {
+      "data-analyst": {
+        "description": "Developed and maintained web applications using React and Node.js."
+      },
+      "full-stack-developer": {
+        "description": "Developed and maintained web applications using Angular and Node.js."
+      },
+      "tech-lead": {
+        "description": "Developed and maintained web applications using React and Node.js."
+      }
+    }
+  },
+  "stack": {
+    "title": "Stack"
+  },
+  "stats": {
+    "title": "Stats"
+  },
+  "blog": {
+    "title": "Blog"
+  },
+  "contact": {
+    "title": "Contact"
+  },
+  "footer": {
+    "title": "Footer"
   }
 }

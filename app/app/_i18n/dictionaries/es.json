@@ -1,5 +1,37 @@
 {
   "home": {
     "title": "Página de inicio"
+  },
+  "about": {
+    "title": "Quién soy"
+  },
+  "experience": {
+    "title": "Experiencia",
+    "items": {
+      "data-analyst": {
+        "description": "Desarrollo y mantenimiento de aplicaciones web utilizando React y Node.js."
+      },
+      "full-stack-developer": {
+        "description": "Desarrollo y mantenimiento de aplicaciones web utilizando Angular y Node.js."
+      },
+      "tech-lead": {
+        "description": "Desarrollo y mantenimiento de aplicaciones web utilizando React y Node.js."
+      }
+    }
+  },
+  "stats": {
+    "title": "Estadísticas"
+  },
+  "stack": {
+    "title": "Stack"
+  },
+  "blog": {
+    "title": "Blog"
+  },
+  "contact": {
+    "title": "Contacto"
+  },
+  "footer": {
+    "title": "Footer"
   }
 }
