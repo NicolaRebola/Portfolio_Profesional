@@ -1,50 +1,34 @@
-"use client";
-import { Locale } from "@/app/_types/i18n";
-import { ButtonGroup } from "@/components/tailgrids/core/button-group";
-import { usePathname, useRouter } from "next/navigation";
-import { useMemo } from "react";
-
-function splitHash(path: string) {
-  const idx = path.indexOf("#");
-  if (idx === -1) return { base: path, hash: "" };
-  return { base: path.slice(0, idx), hash: path.slice(idx) };
-}
-
-function getLocaleFromPath(path: string) {
-  if (path.startsWith("/en")) return "en";
-  return "es";
-}
-
-function replaceLeadingLocale(pathname: string, nextLocale: Locale) {
-  const normalized = pathname.startsWith("/") ? pathname : `/${pathname}`;
-  const parts = normalized.split("/");
-  if (parts.length >= 2 && (parts[1] === "es" || parts[1] === "en")) {
-    parts[1] = nextLocale;
-    return parts.join("/") || `/${nextLocale}/`;
-  }
-  return `/${nextLocale}/`;
-}
+import Link from "next/link";
+import type { Locale } from "@/app/_types/i18n";
+import { i18n } from "@/app/_i18n/config";
 
 export function LangSwitcher({
-  labels = { es: "ES", en: "EN" }
+  lang,
+  labels = { es: "es", en: "en" },
 }: {
+  lang: Locale;
   labels?: Record<Locale, string>;
 }) {
-  const router = useRouter();
-  const pathname = usePathname() || '/';
-
-  const {current, target, hrefTarget} = useMemo(() => {
-    const {base, hash} = splitHash(pathname);
-    const current = getLocaleFromPath(base);
-    const target: Locale = current === 'es' ? 'en' : 'es';
-    const hrefTarget = replaceLeadingLocale(base, target);
-    return { current, target, hrefTarget };
-  }, [pathname]);
-
   return (
-    <ButtonGroup>
-      <button onClick={() => router.push(replaceLeadingLocale(pathname, 'es')	)}>es</button>
-      <button onClick={() => router.push(replaceLeadingLocale(pathname, 'en'))}>en</button>
-    </ButtonGroup>
-  )
+    <div className="inline-flex divide-x divide-white/20 overflow-hidden rounded-lg border border-white/20">
+      {i18n.locales.map((locale) => {
+        const isActive = locale === lang;
+        return (
+          <Link
+            key={locale}
+            href={`/${locale}/`}
+            className={[
+              "inline-flex min-h-11 min-w-11 items-center justify-center px-3.5 py-2.5 font-mono text-sm transition sm:min-h-0 sm:min-w-0",
+              isActive
+                ? "bg-white/10 text-white"
+                : "bg-white/5 text-white/65 hover:bg-white/[0.08] hover:text-white",
+            ].join(" ")}
+            aria-current={isActive ? "page" : undefined}
+          >
+            {labels[locale]}
+          </Link>
+        );
+      })}
+    </div>
+  );
 }

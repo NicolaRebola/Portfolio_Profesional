@@ -1,6 +1,8 @@
 import { LangSwitcher } from "@/app/_components/landing/LangSwitcher";
+import type { Locale } from "@/app/_types/i18n";
 
 export default function Nav({
+  lang,
   logo = "NR/",
   links = [
     { href: "#about", label: "ABOUT" },
@@ -10,6 +12,7 @@ export default function Nav({
     { href: "#contact", label: "CONTACT" },
   ],
 }: {
+  lang: Locale;
   logo?: string;
   links?: { href: string; label: string }[];
 }) {
@@ -40,7 +43,7 @@ export default function Nav({
         </div>
 
         <div className="flex items-center gap-3">
-          <LangSwitcher />
+          <LangSwitcher lang={lang} />
         </div>
       </div>
     </nav>

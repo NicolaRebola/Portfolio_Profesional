@@ -22,7 +22,7 @@ export default function About({
   };
 }) {
   return (
-    <section id="about" className="mx-auto w-full max-w-6xl px-6 py-24">
+    <section id="about" className="mx-auto w-full min-w-0 max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
       <div className="mb-10">
         <p className="font-mono text-xs tracking-[0.18em] text-indigo-300/80">
           ABOUT
@@ -35,14 +35,14 @@ export default function About({
         </p>
       </div>
 
-      <div className="grid gap-10 md:grid-cols-2 md:gap-16">
-        <div className="space-y-5 text-[1.05rem] leading-relaxed text-white/70">
+      <div className="grid min-w-0 gap-10 md:grid-cols-2 md:gap-16">
+        <div className="min-w-0 space-y-5 text-[1.05rem] leading-relaxed text-white/70 break-words">
           {paragraphs.map((p) => (
             <p key={p}>{p}</p>
           ))}
         </div>
 
-        <div className="md:pt-1">
+        <div className="min-w-0 md:pt-1">
           <AboutPillarsTabs pillars={pillars} />
         </div>
       </div>
@@ -54,14 +54,14 @@ export default function About({
           </h3>
         ) : null}
 
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+        <div className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((s) => (
             <div
               key={s.id}
-              className="rounded-xl border border-white/10 bg-white/5 p-5"
+              className="min-w-0 rounded-xl border border-white/10 bg-white/5 p-5"
             >
               <div
-                className="font-[var(--font-syne)] text-3xl font-extrabold leading-none text-transparent bg-clip-text"
+                className="break-words font-[var(--font-syne)] text-2xl font-extrabold leading-tight text-transparent bg-clip-text sm:text-3xl"
                 style={{
                   backgroundImage:
                     "linear-gradient(135deg, rgb(99,102,241), rgb(6,182,212))",
@@ -69,7 +69,7 @@ export default function About({
               >
                 {s.value}
               </div>
-              <div className="mt-3 font-mono text-xs tracking-[0.08em] text-white/50">
+              <div className="mt-3 break-words font-mono text-xs tracking-[0.08em] text-white/50">
                 {s.label}
               </div>
             </div>

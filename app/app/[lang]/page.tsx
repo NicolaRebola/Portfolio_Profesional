@@ -5,7 +5,6 @@ import Footer from "../_components/landing/Footer";
 import Hero from "../_components/landing/Hero";
 import Nav from "../_components/landing/Nav";
 import Stack from "../_components/landing/Stack";
-import Stats from "../_components/landing/Stats";
 import { experience } from "../_data/experience";
 import { socialLinks } from "../_data/social";
 import { stack } from "../_data/stack";
@@ -36,8 +35,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: "es
   }));
 
   return (
-    <div className="flex flex-col gap-4 p-5">
-      <Nav/>
+    <div className="flex w-full max-w-full min-w-0 flex-col gap-4 overflow-x-hidden px-4 py-4 sm:px-5 sm:py-5">
+      <Nav lang={lang} />
       <Hero
         tag={dict.hero.eyebrow}
         titlePlain={dict.hero.title}

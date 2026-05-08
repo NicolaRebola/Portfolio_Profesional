@@ -42,7 +42,7 @@ export default async function RootLayout({
       className={`${dmSans.variable} ${dmMono.variable} ${syne.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <div className="relative min-h-screen overflow-hidden">
+        <div className="relative min-h-screen overflow-x-hidden">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 -z-10"
