@@ -4,6 +4,7 @@ import Experience from "../_components/landing/Experience";
 import Footer from "../_components/landing/Footer";
 import Hero from "../_components/landing/Hero";
 import { LangSwitcher } from "../_components/landing/LangSwitcher";
+import Nav from "../_components/landing/Nav";
 import Stack from "../_components/landing/Stack";
 import Stats from "../_components/landing/Stats";
 import { blog } from "../_data/blog";
@@ -33,6 +34,7 @@ export default async function HomePage({ params }: { params: { lang: string } })
 
   return (
     <div className="flex flex-col gap-4 p-5">
+      <Nav/>
       <Hero
         tag={dict.hero.eyebrow}
         titlePlain={dict.hero.title}
@@ -42,7 +44,6 @@ export default async function HomePage({ params }: { params: { lang: string } })
         ctaSecondary={{ label: dict.hero.ctaSecondary.label, href: dict.hero.ctaSecondary.href }}
       />
       <About title={dict.about.title} description={dict.about.description} />
-      <LangSwitcher />
       <Experience title={dict.experience.title} description={dict.experience.description} items={mappedExperience} />
       <Stack title={dict.stack.title} description={dict.stack.description} items={stack} />
       <Stats title={dict.stats.title} description={dict.stats.description} items={stats} />
