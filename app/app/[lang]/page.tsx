@@ -6,7 +6,6 @@ import Hero from "../_components/landing/Hero";
 import Nav from "../_components/landing/Nav";
 import Stack from "../_components/landing/Stack";
 import Stats from "../_components/landing/Stats";
-import { blog } from "../_data/blog";
 import { experience } from "../_data/experience";
 import { socialLinks } from "../_data/social";
 import { stack } from "../_data/stack";
@@ -18,7 +17,7 @@ export function generateStaticParams() {
   return [{ lang: "es" }, { lang: "en" }];
 }
 
-export default async function HomePage({ params }: { params: { lang: string } }) {
+export default async function HomePage({ params }: { params: Promise<{ lang: "es" | "en" }> }) {
   const { lang } = await params;
   const dict = getDictionary(lang);
   
@@ -61,8 +60,17 @@ export default async function HomePage({ params }: { params: { lang: string } })
         items={mappedExperience}
       />
       <Stack title={dict.stack.title} description={dict.stack.description} items={stack} />
-      <Blog title={dict.blog.title} description={dict.blog.description} items={blog} />
-      <Footer contacts={socialLinks} />
+      <Blog
+        title={dict.blog.title}
+        description={dict.blog.description}
+        comingSoon={dict.blog.comingSoon}
+        banner={dict.blog.banner}
+      />
+      <Footer
+        title={dict.footer.title}
+        rights={dict.footer.rights}
+        contacts={socialLinks}
+      />
     </div>
   );
 }

@@ -106,12 +106,15 @@
   },
   "blog": {
     "title": "Blog",
-    "description": "Donde he escrito cosas."
+    "description": "Notas, patrones y decisiones — pronto.",
+    "comingSoon": "PRÓXIMAMENTE",
+    "banner": "Todavía no hay artículos publicados. Estoy preparando contenido sobre arquitectura, datos, equipos y delivery — vuelve pronto."
   },
   "contact": {
     "title": "Contacto"
   },
   "footer": {
-    "title": "Footer"
+    "title": "Construyamos algo confiable",
+    "rights": "© Nicola Rebola. Todos los derechos reservados."
   }
 }

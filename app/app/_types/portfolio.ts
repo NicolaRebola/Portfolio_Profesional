@@ -18,13 +18,32 @@ type ExperienceItem = {
   period: string;
 }
 
-type StackItem = {
-  category: string;
-}
+type StackGroupId = "frontend" | "backend" | "data" | "tools" | "cloud" | "ai";
+
+type StackTech = {
+  id: string;
+  name: string;
+};
+
+type StackGroup = {
+  id: StackGroupId;
+  title: string;
+  items: StackTech[];
+};
 
 type BlogPlaceholder = {
-  title: string;
-  excerpt: string;
+  id: string;
+  title: { es: string; en: string };
+  excerpt: { es: string; en: string };
 }
 
-export type { SocialLink, Stat, ExperienceItem, StackItem, BlogPlaceholder, ExperienceItemId };
+export type {
+  SocialLink,
+  Stat,
+  ExperienceItem,
+  StackGroup,
+  StackGroupId,
+  StackTech,
+  BlogPlaceholder,
+  ExperienceItemId,
+};
