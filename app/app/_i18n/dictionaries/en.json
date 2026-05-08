@@ -4,7 +4,46 @@
   },
   "about": {
     "title": "About",
-    "description": "Business first, technology second."
+    "description": "Business first, technology second.",
+    "paragraphs": [
+      "To build a reliable digital product that truly moves the business forward, good code alone isn’t enough. My job is to align four pillars that reinforce each other: the software foundation, the data and AI that make it smarter, the people who build it, and the way the organization operates to ship with quality.",
+      "When those four pieces are designed together, the benefits are clear: faster, data-informed decisions; teams aligned to execute with less friction; and a platform that scales without becoming fragile.",
+      "Rather than optimizing one area in isolation, I aim for balance—sustainable velocity, consistent quality, and a product that’s easier to evolve."
+    ],
+    "pillars": {
+      "software": {
+        "title": "Software",
+        "body": [
+          "Architecture and infrastructure that support growth: scalability, resilience, and predictable operations.",
+          "Quality as a system: testing, observability, traceability, and documentation to reduce risk and technical debt.",
+          "Impact: fewer incidents, safer changes, and a platform that evolves without becoming fragile."
+        ]
+      },
+      "dataAI": {
+        "title": "Data & AI",
+        "body": [
+          "Trusted data end to end: collection, cleaning, and metrics tied to KPIs/OKRs.",
+          "Applied AI (ML/LLMs/agents) focused on usefulness: automation, assistance, and better decisions.",
+          "Impact: less uncertainty, faster learning loops, and continuous product optimization."
+        ]
+      },
+      "people": {
+        "title": "People",
+        "body": [
+          "Empathetic technical leadership: clarity, feedback, and mentoring to raise the bar without burnout.",
+          "Ownership culture: autonomy with accountability, collaboration, and direct communication.",
+          "Impact: better alignment, stronger execution, and consistent decisions under pressure."
+        ]
+      },
+      "process": {
+        "title": "Organizations & Processes",
+        "body": [
+          "Operational efficiency without bureaucracy: lightweight processes that remove friction and speed up delivery.",
+          "Useful rituals and metrics (not vanity): focus, prioritization, and continuous improvement.",
+          "Impact: predictability, sustainable speed, and consistent quality over time."
+        ]
+      }
+    }
   },
   "hero": {
     "eyebrow": "Available for select projects",
@@ -40,7 +79,13 @@
   },
   "stats": {
     "title": "Stats",
-    "description": "Some numbers about me."
+    "description": "What I prioritize when building products.",
+    "labels": {
+      "software": "Software & Infra",
+      "dataAI": "Data & AI",
+      "people": "People",
+      "process": "Process"
+    }
   },
   "blog": {
     "title": "Blog",

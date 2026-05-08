@@ -2,15 +2,19 @@ import type { Stat } from "@/app/_types/portfolio";
 
 export const stats: Stat[] = [
   {
-    labelKey: "stats.years",
+    id: "software",
+    value: "Escalable",
   },
   {
-    labelKey: "stats.projects",
+    id: "dataAI",
+    value: "Más claridad",
   },
   {
-    labelKey: "stats.companies",
+    id: "people",
+    value: "Ownership",
   },
   {
-    labelKey: "stats.satisfaction",
+    id: "process",
+    value: "Delivery",
   }
 ]

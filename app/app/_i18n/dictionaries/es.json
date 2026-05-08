@@ -4,7 +4,46 @@
   },
   "about": {
     "title": "Quién soy",
-    "description": "Negocios primero, tecnología segundo."
+    "description": "Negocios primero, tecnología segundo.",
+    "paragraphs": [
+      "Para que un producto digital sea realmente confiable e impacte al negocio, no alcanza con escribir buen código. Mi trabajo es alinear cuatro pilares que se potencian entre sí: el software que lo sostiene, los datos y la IA que lo vuelven inteligente, las personas que lo construyen y la forma en que la organización trabaja para entregarlo con calidad.",
+      "Cuando esas cuatro piezas se piensan en conjunto, los beneficios se vuelven claros: decisiones más rápidas y basadas en datos, equipos alineados que ejecutan sin fricción, y una plataforma que escala sin volverse frágil.",
+      "En lugar de optimizar una sola parte, busco equilibrio: velocidad sostenible, calidad consistente y un producto más fácil de evolucionar."
+    ],
+    "pillars": {
+      "software": {
+        "title": "Software",
+        "body": [
+          "Arquitectura e infraestructura que soportan el crecimiento: escalabilidad, resiliencia y operación predecible.",
+          "Calidad como sistema: pruebas, observabilidad, trazabilidad y documentación para reducir riesgo y deuda técnica.",
+          "Impacto: menos incidentes, cambios más seguros y una plataforma que evoluciona sin volverse frágil."
+        ]
+      },
+      "dataAI": {
+        "title": "Data & AI",
+        "body": [
+          "Datos confiables de punta a punta: captura, limpieza y métricas que conectan con KPIs/OKRs.",
+          "IA aplicada (ML/LLMs/agentes) con foco en utilidad: automatización, asistencia y mejores decisiones.",
+          "Impacto: menos incertidumbre, más velocidad de aprendizaje y optimización continua del producto."
+        ]
+      },
+      "people": {
+        "title": "Personas",
+        "body": [
+          "Liderazgo técnico y empático: claridad, feedback y mentoring para elevar el estándar sin burn-out.",
+          "Cultura de ownership: autonomía con responsabilidad, colaboración y comunicación directa.",
+          "Impacto: equipos más alineados, mejor ejecución y decisiones consistentes bajo presión."
+        ]
+      },
+      "process": {
+        "title": "Organizaciones & Procesos",
+        "body": [
+          "Eficiencia operativa sin burocracia: procesos livianos que reducen fricción y aceleran el delivery.",
+          "Rituales y métricas útiles (no vanity): foco, priorización y aprendizaje continuo.",
+          "Impacto: predictibilidad, velocidad sostenible y calidad consistente en el tiempo."
+        ]
+      }
+    }
   },
   "hero": {
     "eyebrow": "Disponible para proyectos selectos",
@@ -36,7 +75,13 @@
   },
   "stats": {
     "title": "Estadísticas",
-    "description": "Algunos números sobre mí."
+    "description": "Lo que priorizo cuando construyo productos.",
+    "labels": {
+      "software": "Software & Infra",
+      "dataAI": "Data & AI",
+      "people": "Personas",
+      "process": "Procesos"
+    }
   },
   "stack": {
     "title": "Stack",

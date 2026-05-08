@@ -6,7 +6,8 @@ type SocialLink = {
 }
 
 type Stat = {
-  labelKey: string;
+  id: "software" | "dataAI" | "people" | "process";
+  value: string;
 }
 
 type ExperienceItemId = 'data-analyst' | 'full-stack-developer' | 'tech-lead';
