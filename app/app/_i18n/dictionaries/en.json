@@ -3,10 +3,12 @@
     "title": "Home Page"
   },
   "about": {
-    "title": "About"
+    "title": "About",
+    "description": "Business first, technology second."
   },
   "experience": {
     "title": "Experience",
+    "description": "Where I've built things.",
     "items": {
       "data-analyst": {
         "description": "Developed and maintained web applications using React and Node.js."
@@ -20,18 +22,20 @@
     }
   },
   "stack": {
-    "title": "Stack"
+    "title": "Stack",
+    "description": "The technologies I've used."
   },
   "stats": {
-    "title": "Stats"
+    "title": "Stats",
+    "description": "Some numbers about me."
   },
   "blog": {
-    "title": "Blog"
+    "title": "Blog",
+    "description": "Where I've written things."
   },
   "contact": {
     "title": "Contact"
   },
   "footer": {
-    "title": "Footer"
   }
 }

@@ -3,10 +3,12 @@
     "title": "Página de inicio"
   },
   "about": {
-    "title": "Quién soy"
+    "title": "Quién soy",
+    "description": "Negocios primero, tecnología segundo."
   },
   "experience": {
     "title": "Experiencia",
+    "description": "Donde he construido cosas.",
     "items": {
       "data-analyst": {
         "description": "Desarrollo y mantenimiento de aplicaciones web utilizando React y Node.js."
@@ -20,13 +22,16 @@
     }
   },
   "stats": {
-    "title": "Estadísticas"
+    "title": "Estadísticas",
+    "description": "Algunos números sobre mí."
   },
   "stack": {
-    "title": "Stack"
+    "title": "Stack",
+    "description": "Las tecnologías que he utilizado."
   },
   "blog": {
-    "title": "Blog"
+    "title": "Blog",
+    "description": "Donde he escrito cosas."
   },
   "contact": {
     "title": "Contacto"
