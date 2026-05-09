@@ -1,0 +1,134 @@
+{
+  "home": {
+    "title": "Página de inicio"
+  },
+  "seo": {
+    "title": "Nicola Rebola — Arquitecto de software & Tech Lead",
+    "description": "Portfolio de Nicola Rebola: arquitectura de software, delivery full stack, datos e IA, y liderazgo técnico. Sitio bilingüe — proyectos seleccionados.",
+    "keywords": [
+      "Nicola Rebola",
+      "Arquitecto de software",
+      "Tech Lead",
+      "Full Stack",
+      "MEAN",
+      "Node.js",
+      "Angular",
+      "Portfolio"
+    ]
+  },
+  "about": {
+    "title": "Quién soy",
+    "description": "Negocios primero, tecnología segundo.",
+    "paragraphs": [
+      "Para que un producto digital sea realmente confiable e impacte al negocio, no alcanza con escribir buen código. Mi trabajo es alinear cuatro pilares que se potencian entre sí: el software que lo sostiene, los datos y la IA que lo vuelven inteligente, las personas que lo construyen y la forma en que la organización trabaja para entregarlo con calidad.",
+      "Cuando esas cuatro piezas se piensan en conjunto, los beneficios se vuelven claros: decisiones más rápidas y basadas en datos, equipos alineados que ejecutan sin fricción, y una plataforma que escala sin volverse frágil.",
+      "En lugar de optimizar una sola parte, busco equilibrio: velocidad sostenible, calidad consistente y un producto más fácil de evolucionar."
+    ],
+    "pillars": {
+      "software": {
+        "title": "Software",
+        "body": [
+          "Arquitectura e infraestructura que soportan el crecimiento: escalabilidad, resiliencia y operación predecible.",
+          "Calidad como sistema: pruebas, observabilidad, trazabilidad y documentación para reducir riesgo y deuda técnica.",
+          "Impacto: menos incidentes, cambios más seguros y una plataforma que evoluciona sin volverse frágil."
+        ]
+      },
+      "dataAI": {
+        "title": "Data & AI",
+        "body": [
+          "Datos confiables de punta a punta: captura, limpieza y métricas que conectan con KPIs/OKRs.",
+          "IA aplicada (ML/LLMs/agentes) con foco en utilidad: automatización, asistencia y mejores decisiones.",
+          "Impacto: menos incertidumbre, más velocidad de aprendizaje y optimización continua del producto."
+        ]
+      },
+      "people": {
+        "title": "Personas",
+        "body": [
+          "Liderazgo técnico y empático: claridad, feedback y mentoring para elevar el estándar sin burn-out.",
+          "Cultura de ownership: autonomía con responsabilidad, colaboración y comunicación directa.",
+          "Impacto: equipos más alineados, mejor ejecución y decisiones consistentes bajo presión."
+        ]
+      },
+      "process": {
+        "title": "Organizaciones & Procesos",
+        "body": [
+          "Eficiencia operativa sin burocracia: procesos livianos que reducen fricción y aceleran el delivery.",
+          "Rituales y métricas útiles (no vanity): foco, priorización y aprendizaje continuo.",
+          "Impacto: predictibilidad, velocidad sostenible y calidad consistente en el tiempo."
+        ]
+      }
+    }
+  },
+  "hero": {
+    "eyebrow": "Disponible para proyectos selectos",
+    "title": "Arquitecto de Software",
+    "subtitle": "Pensador de sistemas.",
+    "ctaPrimary": {
+      "label": "Ver mi trabajo ↓",
+      "href": "#experience"
+    },
+    "ctaSecondary": {
+      "label": "Contactar",
+      "href": "mailto:nicolarebola.dev@gmail.com"
+    }
+  },
+  "experience": {
+    "title": "Experiencia",
+    "description": "Donde he construido cosas.",
+    "items": {
+      "data-analyst": {
+        "summary": "Convertí datos en decisiones y entregué dashboards que mejoraron resultados para clientes.",
+        "bullets": [
+          "Optimización de procesos: creé un framework estandarizado que redujo el tiempo de setup e implementación en un 40%.",
+          "Impacto en clientes: aumenté la satisfacción en un 25% con dashboards interactivos centrados en el usuario para más de 20 clientes.",
+          "Innovación: co-desarrollé algoritmos de tracking de activos con geolocalización y triangulación."
+        ]
+      },
+      "full-stack-developer": {
+        "summary": "Construí y escalé aplicaciones MEAN, convirtiendo objetivos de producto en sistemas confiables junto a stakeholders.",
+        "bullets": [
+          "Lideré implementaciones técnicas de iniciativas de producto y traduje requerimientos en planes de entrega.",
+          "Diseñé y desarrollé aplicaciones escalables con Angular, Node.js y MongoDB.",
+          "Construí APIs y servicios backend para flujos críticos; trabajé en performance, calidad y escalabilidad.",
+          "Colaboré con equipos distribuidos en entornos ágiles, aportando a decisiones de arquitectura y producto."
+        ]
+      },
+      "tech-lead": {
+        "summary": "Mantuve alineados negocio, tecnología y personas—conectando estrategia y ejecución para llevar IA a producción.",
+        "bullets": [
+          "Dirección estratégica: lideré el roadmap tecnológico, pasando de experimentos con IA/LLMs a soluciones listas para producción.",
+          "Arquitectura: diseñé y supervisé sistemas con Node.js, Python y MongoDB, asegurando performance y estabilidad.",
+          "Mentoría: acompañé a equipos como mentor hands-on, promoviendo patrones de diseño y clean code para simplificar integraciones.",
+          "Pensamiento sistémico: implementé arquitecturas escalables que se adaptan a necesidades organizacionales cambiantes."
+        ]
+      }
+    }
+  },
+  "stats": {
+    "title": "Estadísticas",
+    "description": "Lo que priorizo cuando construyo productos.",
+    "labels": {
+      "software": "Software & Infra",
+      "dataAI": "Data & AI",
+      "people": "Personas",
+      "process": "Procesos"
+    }
+  },
+  "stack": {
+    "title": "Stack",
+    "description": "Las tecnologías que he utilizado."
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "Notas, patrones y decisiones — pronto.",
+    "comingSoon": "PRÓXIMAMENTE",
+    "banner": "Todavía no hay artículos publicados. Estoy preparando contenido sobre arquitectura, datos, equipos y delivery — vuelve pronto."
+  },
+  "contact": {
+    "title": "Contacto"
+  },
+  "footer": {
+    "title": "Construyamos algo confiable",
+    "rights": "© Nicola Rebola. Todos los derechos reservados."
+  }
+}

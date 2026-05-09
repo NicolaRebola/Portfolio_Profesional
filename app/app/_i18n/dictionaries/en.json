@@ -1,0 +1,134 @@
+{
+  "home": {
+    "title": "Home Page"
+  },
+  "seo": {
+    "title": "Nicola Rebola — Software Architect & Tech Lead",
+    "description": "Portfolio of Nicola Rebola: software architecture, full-stack delivery, data & AI, and technical leadership. Bilingual site — open to select projects.",
+    "keywords": [
+      "Nicola Rebola",
+      "Software Architect",
+      "Tech Lead",
+      "Full Stack Developer",
+      "MEAN stack",
+      "Node.js",
+      "Angular",
+      "Portfolio"
+    ]
+  },
+  "about": {
+    "title": "About",
+    "description": "Business first, technology second.",
+    "paragraphs": [
+      "To build a reliable digital product that truly moves the business forward, good code alone isn’t enough. My job is to align four pillars that reinforce each other: the software foundation, the data and AI that make it smarter, the people who build it, and the way the organization operates to ship with quality.",
+      "When those four pieces are designed together, the benefits are clear: faster, data-informed decisions; teams aligned to execute with less friction; and a platform that scales without becoming fragile.",
+      "Rather than optimizing one area in isolation, I aim for balance—sustainable velocity, consistent quality, and a product that’s easier to evolve."
+    ],
+    "pillars": {
+      "software": {
+        "title": "Software",
+        "body": [
+          "Architecture and infrastructure that support growth: scalability, resilience, and predictable operations.",
+          "Quality as a system: testing, observability, traceability, and documentation to reduce risk and technical debt.",
+          "Impact: fewer incidents, safer changes, and a platform that evolves without becoming fragile."
+        ]
+      },
+      "dataAI": {
+        "title": "Data & AI",
+        "body": [
+          "Trusted data end to end: collection, cleaning, and metrics tied to KPIs/OKRs.",
+          "Applied AI (ML/LLMs/agents) focused on usefulness: automation, assistance, and better decisions.",
+          "Impact: less uncertainty, faster learning loops, and continuous product optimization."
+        ]
+      },
+      "people": {
+        "title": "People",
+        "body": [
+          "Empathetic technical leadership: clarity, feedback, and mentoring to raise the bar without burnout.",
+          "Ownership culture: autonomy with accountability, collaboration, and direct communication.",
+          "Impact: better alignment, stronger execution, and consistent decisions under pressure."
+        ]
+      },
+      "process": {
+        "title": "Organizations & Processes",
+        "body": [
+          "Operational efficiency without bureaucracy: lightweight processes that remove friction and speed up delivery.",
+          "Useful rituals and metrics (not vanity): focus, prioritization, and continuous improvement.",
+          "Impact: predictability, sustainable speed, and consistent quality over time."
+        ]
+      }
+    }
+  },
+  "hero": {
+    "eyebrow": "Available for select projects",
+    "title": "Software Architect",
+    "subtitle": "Systems Thinker.",
+    "ctaPrimary": {
+      "label": "View my work ↓",
+      "href": "#experience"
+    },
+    "ctaSecondary": {
+      "label": "Get in touch",
+      "href": "mailto:nicolarebola.dev@gmail.com"
+    }
+  },
+  "experience": {
+    "title": "Experience",
+    "description": "Where I've built things.",
+    "items": {
+      "data-analyst": {
+        "summary": "Turned data into decisions and delivered dashboards that improved customer outcomes.",
+        "bullets": [
+          "Process optimization: created a standardized framework that reduced setup and implementation time by 40%.",
+          "Customer impact: improved satisfaction by 25% through interactive, customer-focused dashboards for 20+ clients.",
+          "Innovation: co-developed asset-tracking algorithms involving geolocation and triangulation."
+        ]
+      },
+      "full-stack-developer": {
+        "summary": "Built and scaled MEAN applications, partnering with stakeholders to turn product goals into reliable systems.",
+        "bullets": [
+          "Led technical implementation of product initiatives and translated requirements into delivery plans.",
+          "Designed and developed scalable applications using Angular, Node.js, and MongoDB.",
+          "Built APIs and backend services for business-critical workflows; improved performance and code quality.",
+          "Collaborated with distributed teams in agile environments, contributing to architecture and product decisions."
+        ]
+      },
+      "tech-lead": {
+        "summary": "Kept business, technology, and people aligned—bridging strategy and execution to ship production-ready AI solutions.",
+        "bullets": [
+          "Strategic direction: led the technological roadmap, transitioning experimental AI/LLM implementations into production-ready solutions.",
+          "Architecture: designed and oversaw systems using Node.js, Python, and MongoDB, ensuring performance and stability.",
+          "Mentorship: acted as a hands-on mentor, promoting design patterns and clean code to simplify complex integrations.",
+          "Systems thinking: implemented scalable architectures that adapt to evolving organizational needs."
+        ]
+      }
+    }
+  },
+  "stack": {
+    "title": "Stack",
+    "description": "The technologies I've used."
+  },
+  "stats": {
+    "title": "Stats",
+    "description": "What I prioritize when building products.",
+    "labels": {
+      "software": "Software & Infra",
+      "dataAI": "Data & AI",
+      "people": "People",
+      "process": "Process"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "Notes, patterns, and decisions — coming soon.",
+    "comingSoon": "COMING SOON",
+    "banner": "There are no published posts yet. I’m preparing articles on architecture, data, teams, and delivery — check back soon."
+  },
+  "contact": {
+    "title": "Contact"
+  },
+  "footer": {
+    "title": "Let’s build something reliable",
+    "rights": "© Nicola Rebola. All rights reserved."
+  }
+}

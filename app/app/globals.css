@@ -1,26 +1,71 @@
 @import "tailwindcss";
 
+/* Landing is dark-only (SPEC / ADR-0005); avoids SSR vs browser prefers-color-scheme drift on body */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-dm-sans);
+  --font-mono: var(--font-dm-mono);
+  --font-syne: var(--font-syne);
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/*
+ * Scroll reveals: Intersection Observer + transitions (`Reveal.tsx`).
+ * CSS-only `animation-timeline: view()` was unreliable across browsers / overflow;
+ * motion stays CSS-based + respects prefers-reduced-motion (ADR-0004 spirit).
+ */
+.reveal-fade {
+  opacity: 0;
+  transform: translate3d(0, 1.35rem, 0);
+  filter: blur(0);
+}
+
+.reveal-fade.reveal-fade--in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-rail {
+  opacity: 0.65;
+  transform: scaleY(0);
+  transform-origin: top center;
+}
+
+.reveal-rail.reveal-rail--in {
+  opacity: 1;
+  transform: scaleY(1);
+  transition:
+    opacity 0.55s ease-out,
+    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-fade,
+  .reveal-rail {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+@media (scripting: none) {
+  .reveal-fade,
+  .reveal-rail {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
