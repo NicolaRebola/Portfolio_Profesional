@@ -2,6 +2,20 @@
   "home": {
     "title": "Página de inicio"
   },
+  "seo": {
+    "title": "Nicola Rebola — Arquitecto de software & Tech Lead",
+    "description": "Portfolio de Nicola Rebola: arquitectura de software, delivery full stack, datos e IA, y liderazgo técnico. Sitio bilingüe — proyectos seleccionados.",
+    "keywords": [
+      "Nicola Rebola",
+      "Arquitecto de software",
+      "Tech Lead",
+      "Full Stack",
+      "MEAN",
+      "Node.js",
+      "Angular",
+      "Portfolio"
+    ]
+  },
   "about": {
     "title": "Quién soy",
     "description": "Negocios primero, tecnología segundo.",

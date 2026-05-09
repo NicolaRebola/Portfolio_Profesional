@@ -1,4 +1,60 @@
+import type { Metadata } from "next";
 import HtmlLang from "@/app/_components/HtmlLang";
+import SeoJsonLd from "@/app/_components/SeoJsonLd";
+import { absoluteLocaleUrl } from "@/app/_constants/site";
+import { getDictionary } from "@/app/_i18n/getDictionary";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  const locale = lang === "es" || lang === "en" ? lang : "en";
+  const dict = getDictionary(locale);
+  const seo = dict.seo as {
+    title: string;
+    description: string;
+    keywords: string[];
+  };
+
+  const pageUrl = absoluteLocaleUrl(locale);
+
+  return {
+    title: {
+      absolute: seo.title,
+    },
+    description: seo.description,
+    keywords: seo.keywords,
+    alternates: {
+      canonical: absoluteLocaleUrl(locale),
+      languages: {
+        en: absoluteLocaleUrl("en"),
+        es: absoluteLocaleUrl("es"),
+        "x-default": absoluteLocaleUrl("en"),
+      },
+    },
+    openGraph: {
+      title: seo.title,
+      description: seo.description,
+      url: pageUrl,
+      siteName: "Nicola Rebola",
+      locale: locale === "es" ? "es_ES" : "en_US",
+      alternateLocale: locale === "es" ? ["en_US"] : ["es_ES"],
+      type: "website",
+    },
+    twitter: {
+      card: "summary",
+      title: seo.title,
+      description: seo.description,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true },
+    },
+  };
+}
 
 export default async function LangLayout({
   params,
@@ -9,9 +65,12 @@ export default async function LangLayout({
 }>) {
   const { lang } = await params;
   const safeLang = lang === "es" || lang === "en" ? lang : "en";
+  const dict = getDictionary(safeLang);
+  const pageUrl = absoluteLocaleUrl(safeLang);
 
   return (
     <>
+      <SeoJsonLd pageUrl={pageUrl} jobTitle={String(dict.hero.title)} />
       <HtmlLang lang={safeLang} />
       <div className="relative min-h-screen overflow-x-hidden">
         <div

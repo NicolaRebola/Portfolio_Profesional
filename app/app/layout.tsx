@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { SITE_METADATA_BASE } from "@/app/_constants/site";
 import { Syne, DM_Sans, DM_Mono } from "next/font/google";
 import "@/app/globals.css";
 
@@ -24,8 +25,13 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nicola Rebola",
-  description: "Software Engineer",
+  metadataBase: SITE_METADATA_BASE,
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0a0a0a",
+  width: "device-width",
+  initialScale: 1,
 };
 
 /**

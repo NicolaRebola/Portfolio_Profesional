@@ -42,6 +42,12 @@ npm run build
 
 Static artifacts are written to `app/out/`. A **`postbuild`** step generates **`out/index.html`**, which redirects the site root to **`en/`** (English by default). For GitHub Pages, confirm `next.config.ts` (`basePath`, `assetPrefix`, `trailingSlash`) matches your Pages setup.
 
+### Environment variables
+
+| Variable | When | Purpose |
+|----------|------|---------|
+| `NEXT_PUBLIC_SITE_URL` | Production / CI build | Public site **origin only** (e.g. `https://username.github.io`). Used for canonical URLs, `hreflang`, Open Graph `url`, `sitemap.xml`, and `robots.txt`. Do **not** append the repo path; the app adds `basePath` where needed. If unset, builds fall back to `http://localhost:3000` (fine for local `out/` inspection only). |
+
 ## Documentation conventions
 
 - **Spec** — feature scope and acceptance criteria ([`docs/specs/`](./docs/specs/)).
