@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://nicolarebola.github.io/Portfolio_Profesional/sitemap.xml
