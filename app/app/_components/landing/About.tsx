@@ -1,5 +1,6 @@
 import type { Stat } from "@/app/_types/portfolio";
 import AboutPillarsTabs from "@/app/_components/landing/AboutPillarsTabs";
+import Reveal from "@/app/_components/Reveal";
 
 export default function About({
   title,
@@ -22,8 +23,11 @@ export default function About({
   };
 }) {
   return (
-    <section id="about" className="mx-auto w-full min-w-0 max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-      <div className="mb-10">
+    <section
+      id="about"
+      className="mx-auto w-full min-w-0 max-w-6xl border-t border-white/[0.06] px-4 py-16 sm:px-6 sm:py-24"
+    >
+      <Reveal className="mb-10">
         <p className="font-mono text-xs tracking-[0.18em] text-indigo-300/80">
           ABOUT
         </p>
@@ -33,46 +37,49 @@ export default function About({
         <p className="mt-4 max-w-2xl text-base font-light leading-relaxed text-white/60">
           {description}
         </p>
-      </div>
+      </Reveal>
 
       <div className="grid min-w-0 gap-10 md:grid-cols-2 md:gap-16">
         <div className="min-w-0 space-y-5 text-[1.05rem] leading-relaxed text-white/70 break-words">
-          {paragraphs.map((p) => (
-            <p key={p}>{p}</p>
+          {paragraphs.map((p, i) => (
+            <Reveal key={p} delayMs={i * 75}>
+              <p>{p}</p>
+            </Reveal>
           ))}
         </div>
 
-        <div className="min-w-0 md:pt-1">
+        <Reveal className="min-w-0 md:pt-1" delayMs={120}>
           <AboutPillarsTabs pillars={pillars} />
-        </div>
+        </Reveal>
       </div>
 
       <div className="mt-12">
         {statsTitle ? (
-          <h3 className="mb-4 font-mono text-xs tracking-[0.14em] text-white/50">
-            {statsTitle}
-          </h3>
+          <Reveal className="mb-4 block">
+            <h3 className="font-mono text-xs tracking-[0.14em] text-white/50">
+              {statsTitle}
+            </h3>
+          </Reveal>
         ) : null}
 
         <div className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((s) => (
-            <div
-              key={s.id}
-              className="min-w-0 rounded-xl border border-white/10 bg-white/5 p-5"
-            >
-              <div
-                className="break-words font-[var(--font-syne)] text-2xl font-extrabold leading-tight text-transparent bg-clip-text sm:text-3xl"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(135deg, rgb(99,102,241), rgb(6,182,212))",
-                }}
-              >
-                {s.value}
+          {stats.map((s, i) => (
+            <Reveal key={s.id} delayMs={i * 85}>
+              <div className="min-w-0 rounded-xl border border-white/10 bg-white/5 p-5">
+                <div
+                  className="break-words font-[var(--font-syne)] text-2xl font-extrabold leading-tight text-transparent bg-clip-text sm:text-3xl"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(135deg, rgb(99,102,241), rgb(6,182,212))",
+                  }}
+                >
+                  {s.value}
+                </div>
+                <div className="mt-3 break-words font-mono text-xs tracking-[0.08em] text-white/50">
+                  {s.label}
+                </div>
               </div>
-              <div className="mt-3 break-words font-mono text-xs tracking-[0.08em] text-white/50">
-                {s.label}
-              </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

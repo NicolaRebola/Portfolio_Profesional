@@ -19,3 +19,53 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
 }
+
+/*
+ * Scroll reveals: Intersection Observer + transitions (`Reveal.tsx`).
+ * CSS-only `animation-timeline: view()` was unreliable across browsers / overflow;
+ * motion stays CSS-based + respects prefers-reduced-motion (ADR-0004 spirit).
+ */
+.reveal-fade {
+  opacity: 0;
+  transform: translate3d(0, 1.35rem, 0);
+  filter: blur(0);
+}
+
+.reveal-fade.reveal-fade--in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-rail {
+  opacity: 0.65;
+  transform: scaleY(0);
+  transform-origin: top center;
+}
+
+.reveal-rail.reveal-rail--in {
+  opacity: 1;
+  transform: scaleY(1);
+  transition:
+    opacity 0.55s ease-out,
+    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-fade,
+  .reveal-rail {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+@media (scripting: none) {
+  .reveal-fade,
+  .reveal-rail {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

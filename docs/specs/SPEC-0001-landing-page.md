@@ -25,7 +25,7 @@ Deliver a bilingual (Spanish and English) landing page that introduces Nicola Re
 - [x] Blog area is a single non-navigating placeholder (coming-soon messaging), not clickable post cards.
 - [x] A language switcher in the navigation lets the user move between `/es/` and `/en/` using real navigations (`next/link`). *(Preserving the current hash/section anchor on switch is **not** implemented yet.)*
 - [ ] On both locales, `<html lang>` matches the route, and `<link rel="alternate" hreflang>` tags point to the other locale and to `x-default`. *(Layout sets `lang`; bilingual metadata / hreflang still to be wired — see Commit Plan step 13.)*
-- [ ] Scroll-driven reveal animations play in supporting browsers and are disabled when `prefers-reduced-motion: reduce` is set. *(Deferred — global styles do not yet include `animation-timeline: view()` per [ADR-0004](../adr/0004-css-scroll-driven-animations.md).)*
+- [x] Scroll-driven reveal animations run when blocks enter the viewport and respect **`prefers-reduced-motion`**. *Implementation: client **`Reveal`** (`IntersectionObserver` ~70 LOC) + CSS transitions (`.reveal-fade` / `.reveal-rail` in `globals.css`). Pure `animation-timeline: view()` was dropped as unreliable in practice — motion stays CSS-driven per [ADR-0004](../adr/0004-css-scroll-driven-animations.md) intent.*
 - [~] The page is dark-themed only; CSS tokens (custom properties) exist under `:root` for fonts/colors. *(Landing is visually dark; full token architecture for a future light theme may still evolve.)*
 - [~] On mobile (≤ 768 px), all content is reachable without horizontal scroll; About pillars and stats grids wrap/stack. *(Responsive fixes applied: `min-w-0`, `overflow-x-hidden`, wrapping tabs.) Nav links are hidden until `md` — hamburger pattern from mockup **not** implemented.*
 - [x] The site builds with `npm run build` inside `app/` and produces a static `out/` directory suitable for static hosting.
@@ -62,7 +62,7 @@ These choices are intentionally **not** full ADRs; they follow from static expor
 ## Architecture
 The landing page is built on Next.js App Router under `output: "export"`, hosted on GitHub Pages. Internationalization uses a dynamic `[lang]/` segment with `generateStaticParams` to produce one static HTML per locale (see [ADR-0002](../adr/0002-routing-lang-segment.md)), backed by a small custom JSON dictionary loader instead of a third-party i18n library (see [ADR-0001](../adr/0001-i18n-custom-loader.md)). Because static export does not emit a locale bundle at `/`, **`npm run postbuild`** runs `scripts/generate-root-redirect.mjs`, which writes **`out/index.html`** so the site root redirects to **`en/`** (relative URL; works under the `Portfolio_Profesional` GitHub Pages subpath). This **supersedes** the browser-locale detection described historically in [ADR-0003](../adr/0003-postbuild-root-redirect.md) for v1; Spanish remains available at `/es/`. **`app/page.tsx`** handles **`/`** in **`next dev`** (middleware cannot be used with **`output: "export"`**).
 
-Styling uses Tailwind CSS v4 with tokens in `:root` / `@theme`. Scroll-driven reveals per [ADR-0004](../adr/0004-css-scroll-driven-animations.md) are **planned** but not necessarily present in `globals.css` yet. The page targets a dark presentation for v1 (see [ADR-0005](../adr/0005-dark-mode-only.md)).
+Styling uses Tailwind CSS v4 with tokens in `:root` / `@theme`. Scroll reveals use **`Reveal.tsx`** + **`globals.css`** transition classes; **`prefers-reduced-motion`** and **`@media (scripting: none)`** disable or bypass motion ([ADR-0004](../adr/0004-css-scroll-driven-animations.md)). The page targets a dark presentation for v1 (see [ADR-0005](../adr/0005-dark-mode-only.md)).
 
 Landing sections are implemented as **Server Components** where possible: **Nav**, **Hero**, **About** (including embedded stats grid), **Experience**, **Stack**, **Blog**, **Footer**, and **`LangSwitcher`** (links only). **AboutPillarsTabs** is also a Server Component (progressive enhancement). Portfolio data lives in typed modules under `app/app/_data/`; props carry resolved strings from `getDictionary(lang)`.
 
@@ -140,7 +140,7 @@ Authoritative TypeScript types and shapes live in **`app/app/_types/portfolio.ts
 9. **feat(about): About + pillar tabs + stats grid** — **tabs via radios + `group-has`; responsive overflow fixes.**
 10. **feat(experience): vertical timeline** — verify items from `_data/experience.ts`.
 11. **feat(stack-blog-footer): stack, blog placeholder, footer** — verify `mailto:` target.
-12. **feat(motion): scroll-driven reveals + `prefers-reduced-motion`** — pending until CSS lands in `globals.css`.
+12. **feat(motion): scroll-driven reveals + `prefers-reduced-motion`** — `Reveal` + `.reveal-fade` / `.reveal-rail` in `globals.css`; wired in Hero, About, Experience, Stack, Blog, Footer.
 13. **feat(seo): bilingual `generateMetadata`, `sitemap.ts`, `robots.ts`** — pending as needed.
 14. **chore(docs): remove mockup HTML, set Spec `Status: Done`, link PR** — final cleanup.
 

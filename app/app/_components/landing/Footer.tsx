@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { SocialLink } from "@/app/_types/portfolio";
+import Reveal from "@/app/_components/Reveal";
 
 function SocialIcon({ icon }: { icon: string }) {
   const className = "h-4 w-4 shrink-0 text-cyan-300/90";
@@ -28,39 +29,48 @@ function SocialIcon({ icon }: { icon: string }) {
   }
 }
 
-export default function Footer(
-  {
-    contacts,
-    title,
-    rights,
-  }: { contacts: SocialLink[]; title: string; rights: string }
-) {
+export default function Footer({
+  contacts,
+  title,
+  rights,
+}: {
+  contacts: SocialLink[];
+  title: string;
+  rights: string;
+}) {
   return (
-    <footer id="contact" className="mx-auto w-full max-w-6xl px-6 py-16">
-      <div className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8">
-        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h2 className="font-[var(--font-syne)] text-2xl font-bold tracking-[-0.02em] text-white/95">
-              {title}
-            </h2>
-            <p className="mt-2 text-sm text-white/60">{rights}</p>
-          </div>
+    <footer
+      id="contact"
+      className="mx-auto w-full max-w-6xl border-t border-white/[0.06] px-6 py-16"
+    >
+      <Reveal>
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h2 className="font-[var(--font-syne)] text-2xl font-bold tracking-[-0.02em] text-white/95">
+                {title}
+              </h2>
+              <p className="mt-2 text-sm text-white/60">{rights}</p>
+            </div>
 
-          <ul className="flex flex-wrap items-center gap-3">
-            {contacts.map((contact) => (
-              <li key={contact.id}>
-                <Link
-                  href={contact.url}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 font-mono text-xs tracking-[0.08em] text-white/80 hover:border-white/20 hover:text-white"
-                >
-                  <SocialIcon icon={contact.icon} />
-                  {contact.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+            <ul className="flex flex-wrap items-center gap-3">
+              {contacts.map((contact, i) => (
+                <li key={contact.id}>
+                  <Reveal delayMs={i * 70}>
+                    <Link
+                      href={contact.url}
+                      className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 font-mono text-xs tracking-[0.08em] text-white/80 hover:border-white/20 hover:text-white"
+                    >
+                      <SocialIcon icon={contact.icon} />
+                      {contact.label}
+                    </Link>
+                  </Reveal>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
+      </Reveal>
     </footer>
   );
 }
