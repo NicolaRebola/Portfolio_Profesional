@@ -42,11 +42,29 @@ npm run build
 
 Static artifacts are written to `app/out/`. A **`postbuild`** step generates **`out/index.html`**, which redirects the site root to **`en/`** (English by default). For GitHub Pages, confirm `next.config.ts` (`basePath`, `assetPrefix`, `trailingSlash`) matches your Pages setup.
 
+### GitHub Pages: production + UAT on one site
+
+Deployments use **[peaceiris/actions-gh-pages](https://github.com/peaceiris/actions-gh-pages)** to push static files to the **`gh-pages`** branch (not the old “GitHub Actions artifact” flow).
+
+| Branch | URL after publish |
+|--------|-------------------|
+| **`main`** | `https://<user>.github.io/Portfolio_Profesional/` |
+| **`develop`** | `https://<user>.github.io/Portfolio_Profesional/uat/` |
+
+**One-time repo settings** (after the first workflow run creates `gh-pages`):
+
+1. Open the repo on GitHub → **Settings** → **Pages** (under “Code and automation”).
+2. Under **Build and deployment** → **Source**, choose **Deploy from a branch** (not “GitHub Actions”).
+3. **Branch:** select **`gh-pages`**, folder **`/ (root)`**, then **Save**.
+
+Until you switch the source to **`gh-pages`**, pushes to `main` / `develop` will update that branch but **GitHub Pages will keep serving the previous source** (if it was still tied to Actions).
+
 ### Environment variables
 
 | Variable | When | Purpose |
 |----------|------|---------|
-| `NEXT_PUBLIC_SITE_URL` | Production / CI build | Public site **origin only** (e.g. `https://username.github.io`). Used for canonical URLs, `hreflang`, Open Graph `url`, `sitemap.xml`, and `robots.txt`. Do **not** append the repo path; the app adds `basePath` where needed. If unset, builds fall back to `http://localhost:3000` (fine for local `out/` inspection only). |
+| `NEXT_PUBLIC_SITE_URL` | Production / CI build | Public site **origin only** (e.g. `https://username.github.io`). Used for canonical URLs, `hreflang`, Open Graph `url`, `sitemap.xml`, and `robots.txt`. Do **not** append the repo path. Set automatically in `.github/workflows/deploy.yml`. If unset locally, builds fall back to `http://localhost:3000`. |
+| `NEXT_PUBLIC_SITE_BASE_PATH` | Production / CI build | URL path prefix for this build: `/Portfolio_Profesional` on **`main`**, `/Portfolio_Profesional/uat` on **`develop`**. Must match `next.config.ts` `basePath`. Set in CI; optional locally (defaults to `/Portfolio_Profesional` when omitted in production builds). |
 
 ## Documentation conventions
 

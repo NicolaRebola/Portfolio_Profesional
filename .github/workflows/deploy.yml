@@ -2,16 +2,14 @@ name: Deploy Next.js to GitHub Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "develop"]
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: false
 
 defaults:
@@ -19,17 +17,35 @@ defaults:
     working-directory: app
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Configure build paths for branch
+        working-directory: .
+        run: |
+          OWNER_LC="$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')"
+          echo "NEXT_PUBLIC_SITE_URL=https://${OWNER_LC}.github.io" >> "$GITHUB_ENV"
+          case "${{ github.ref }}" in
+            refs/heads/main)
+              echo "NEXT_PUBLIC_SITE_BASE_PATH=/Portfolio_Profesional" >> "$GITHUB_ENV"
+              ;;
+            refs/heads/develop)
+              echo "NEXT_PUBLIC_SITE_BASE_PATH=/Portfolio_Profesional/uat" >> "$GITHUB_ENV"
+              ;;
+            *)
+              echo "::error::Deploy workflow expects branch main or develop (ref: ${{ github.ref }})"
+              exit 1
+              ;;
+          esac
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "npm"
+          cache: npm
           cache-dependency-path: app/package-lock.json
 
       - name: Install dependencies
@@ -41,18 +57,19 @@ jobs:
       - name: Add .nojekyll
         run: touch out/.nojekyll
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy production (gh-pages root)
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: ./app/out
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./app/out
+          keep_files: true
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Deploy UAT (gh-pages /uat)
+        if: github.ref == 'refs/heads/develop'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./app/out
+          destination_dir: uat
+          keep_files: true
