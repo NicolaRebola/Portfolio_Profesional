@@ -52,37 +52,6 @@ export default function About({
           <AboutPillarsTabs pillars={pillars} />
         </Reveal>
       </div>
-
-      <div className="mt-12">
-        {statsTitle ? (
-          <Reveal className="mb-4 block">
-            <h3 className="font-mono text-xs tracking-[0.14em] text-white/50">
-              {statsTitle}
-            </h3>
-          </Reveal>
-        ) : null}
-
-        <div className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((s, i) => (
-            <Reveal key={s.id} delayMs={i * 85}>
-              <div className="min-w-0 rounded-xl border border-white/10 bg-white/5 p-5">
-                <div
-                  className="break-words font-[var(--font-syne)] text-2xl font-extrabold leading-tight text-transparent bg-clip-text sm:text-3xl"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(135deg, rgb(99,102,241), rgb(6,182,212))",
-                  }}
-                >
-                  {s.value}
-                </div>
-                <div className="mt-3 break-words font-mono text-xs tracking-[0.08em] text-white/50">
-                  {s.label}
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
     </section>
   );
 }
