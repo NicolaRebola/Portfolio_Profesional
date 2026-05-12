@@ -10,7 +10,7 @@ export function LangSwitcher({
   labels?: Record<Locale, string>;
 }) {
   return (
-    <div className="inline-flex divide-x divide-white/20 overflow-hidden rounded-lg border border-white/20">
+    <div className="flex items-center gap-2">
       {i18n.locales.map((locale) => {
         const isActive = locale === lang;
         return (
@@ -18,10 +18,10 @@ export function LangSwitcher({
             key={locale}
             href={`/${locale}/`}
             className={[
-              "inline-flex min-h-11 min-w-11 items-center justify-center px-3.5 py-2.5 font-mono text-sm transition sm:min-h-0 sm:min-w-0",
+              "rounded-full px-3 py-1 text-sm transition-all",
               isActive
-                ? "bg-white/10 text-white"
-                : "bg-white/5 text-white/65 hover:bg-white/[0.08] hover:text-white",
+                ? "bg-accent text-white"
+                : "text-muted hover:text-foreground",
             ].join(" ")}
             aria-current={isActive ? "page" : undefined}
           >

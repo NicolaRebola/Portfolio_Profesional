@@ -64,7 +64,7 @@ Until you switch the source to **`gh-pages`**, pushes to `main` / `develop` will
 | Variable | When | Purpose |
 |----------|------|---------|
 | `NEXT_PUBLIC_SITE_URL` | Production / CI build | Public site **origin only** (e.g. `https://username.github.io`). Used for canonical URLs, `hreflang`, Open Graph `url`, `sitemap.xml`, and `robots.txt`. Do **not** append the repo path. Set automatically in `.github/workflows/deploy.yml`. If unset locally, builds fall back to `http://localhost:3000`. |
-| `NEXT_PUBLIC_SITE_BASE_PATH` | Production / CI build | URL path prefix for this build: `/Portfolio_Profesional` on **`main`**, `/Portfolio_Profesional/uat` on **`develop`**. Must match `next.config.ts` `basePath`. Set in CI; optional locally (defaults to `/Portfolio_Profesional` when omitted in production builds). |
+| `NEXT_PUBLIC_SITE_BASE_PATH` | CI / optional local | Path prefix for this static export: `/Portfolio_Profesional` on **`main`**, `/Portfolio_Profesional/uat` on **`develop`**. **Omit** for a local `npm run build` + `serve out` preview (site at `/`, assets at `/_next/...`). CI sets this in `.github/workflows/deploy.yml`; it must match the GitHub Pages URL segment. |
 
 ## Documentation conventions
 

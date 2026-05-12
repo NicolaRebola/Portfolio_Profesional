@@ -5,73 +5,60 @@ export default function Hero({
   tag,
   titlePlain,
   titleGradient,
-  subtitle,
+  description,
   ctaPrimary,
   ctaSecondary,
 }: {
   tag: string;
   titlePlain: ReactNode;
   titleGradient: ReactNode;
-  subtitle: ReactNode;
+  description: ReactNode;
   ctaPrimary: { label: string; href: string };
   ctaSecondary: { label: string; href: string };
 }) {
   return (
-    <section id="hero" className="relative min-h-screen overflow-hidden px-6 pb-16 pt-32">
-      <div className="relative z-10 mx-auto max-w-3xl">
-        <Reveal
-          className="mb-8 inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/5 px-4 py-1.5 font-mono text-xs tracking-wide text-cyan-300"
-          delayMs={0}
-        >
-          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300" />
-          {tag}
+    <section id="hero" className="relative overflow-hidden px-6 pb-24 pt-32 lg:px-12">
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <Reveal className="mb-8" delayMs={0}>
+          <div className="inline-flex items-center gap-2 rounded-full border border-success-border bg-success-bg px-4 py-2">
+            <span className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-success-dot" aria-hidden />
+            <span className="text-sm text-success-text">{tag}</span>
+          </div>
         </Reveal>
 
-        <Reveal as="h1" className="font-[var(--font-syne)] text-[clamp(2.8rem,6vw,5.5rem)] font-extrabold leading-[1] tracking-[-0.03em]" delayMs={90}>
-          <span className="text-[color:var(--foreground)]">{titlePlain}</span>{" "}
-          <span
-            className="bg-clip-text text-transparent"
-            style={{
-              backgroundImage:
-                "linear-gradient(135deg, rgb(99,102,241) 0%, rgb(168,85,247) 50%, rgb(6,182,212) 100%)",
-            }}
-          >
-            {titleGradient}
-          </span>
-        </Reveal>
+        <div className="grid items-center gap-16 lg:grid-cols-2">
+          <div>
+            <Reveal
+              as="h1"
+              className="font-[var(--font-syne)] text-[clamp(2.5rem,5vw,4.5rem)] font-bold leading-[1.1] tracking-[-0.02em]"
+              delayMs={90}
+            >
+              <span className="block text-foreground">{titlePlain}</span>
+              <span className="block text-accent italic">{titleGradient}</span>
+            </Reveal>
 
-        <Reveal className="mt-6 max-w-xl text-lg font-light leading-relaxed text-white/60" delayMs={180}>
-          {subtitle}
-        </Reveal>
+            <Reveal className="mt-6 max-w-lg text-xl leading-relaxed text-muted" delayMs={180}>
+              {description}
+            </Reveal>
 
-        <Reveal className="mt-10 flex flex-wrap gap-4" delayMs={260}>
-          <a
-            href={ctaPrimary.href}
-            className="inline-flex items-center gap-2 rounded-lg px-7 py-3.5 font-mono text-sm text-white"
-            style={{
-              backgroundImage:
-                "linear-gradient(135deg, rgb(99,102,241), rgb(168,85,247))",
-            }}
-          >
-            {ctaPrimary.label}
-          </a>
+            <Reveal className="mt-10 flex flex-wrap gap-4" delayMs={260}>
+              <a
+                href={ctaPrimary.href}
+                className="inline-flex items-center gap-2 rounded-xl bg-accent px-8 py-4 text-base font-medium text-white shadow-lg shadow-accent/20 transition-colors hover:bg-accent-hover"
+              >
+                {ctaPrimary.label}
+              </a>
 
-          <a
-            href={ctaSecondary.href}
-            className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-transparent px-7 py-3.5 font-mono text-sm text-white/90 hover:border-white/20"
-          >
-            {ctaSecondary.label}
-          </a>
-        </Reveal>
+              <a
+                href={ctaSecondary.href}
+                className="inline-flex items-center gap-2 rounded-xl border-2 border-border px-8 py-4 text-base font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+              >
+                {ctaSecondary.label}
+              </a>
+            </Reveal>
+          </div>
+        </div>
       </div>
-
-      <Reveal
-        className="pointer-events-none absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-center font-mono text-[0.7rem] tracking-[0.1em] text-white/40"
-        delayMs={340}
-      >
-        <div className="mx-auto mb-2 h-10 w-px bg-gradient-to-b from-white/40 to-transparent" />
-        SCROLL
-      </Reveal>
     </section>
   );
 }

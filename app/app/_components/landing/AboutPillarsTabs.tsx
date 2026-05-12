@@ -1,4 +1,6 @@
-type PillarKey = "software" | "dataAI" | "people" | "process";
+import { Building2, Code2, Database, Users } from "lucide-react";
+
+export type PillarKey = "software" | "dataAI" | "people" | "process";
 
 type Pillar = {
   title: string;
@@ -12,32 +14,39 @@ const TAB_CONFIG: { key: PillarKey; inputId: string }[] = [
   { key: "process", inputId: "about-pillar-process" },
 ];
 
+const PILLAR_ICONS: Record<PillarKey, typeof Code2> = {
+  software: Code2,
+  dataAI: Database,
+  people: Users,
+  process: Building2,
+};
+
 function PillarBody({ pillar }: { pillar: Pillar }) {
   return (
     <>
-      <h3 className="break-words font-[var(--font-syne)] text-xl font-bold tracking-[-0.02em] text-white/95">
+      <h3 className="break-words font-[var(--font-syne)] text-xl font-bold tracking-[-0.02em] text-foreground">
         {pillar.title}
       </h3>
       {Array.isArray(pillar.body) ? (
-        <ul className="mt-3 min-w-0 space-y-2 text-sm leading-relaxed text-white/70">
+        <ul className="mt-4 min-w-0 space-y-4">
           {pillar.body.map((line) => (
-            <li key={line} className="flex gap-2">
-              <span className="mt-[0.35rem] h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300/80" />
-              <span className="min-w-0 break-words">{line}</span>
+            <li key={line} className="flex gap-4">
+              <span className="mt-1 shrink-0 text-accent" aria-hidden>
+                →
+              </span>
+              <span className="min-w-0 break-words text-lg leading-relaxed text-muted">{line}</span>
             </li>
           ))}
         </ul>
       ) : (
-        <p className="mt-3 break-words text-sm leading-relaxed text-white/70">
-          {pillar.body}
-        </p>
+        <p className="mt-4 break-words text-lg leading-relaxed text-muted">{pillar.body}</p>
       )}
     </>
   );
 }
 
-const labelClassName =
-  "cursor-pointer touch-manipulation select-none min-w-0 max-w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-left font-mono text-[0.65rem] leading-snug tracking-[0.06em] text-white/60 transition has-[:checked]:border-white/20 has-[:checked]:bg-white/10 has-[:checked]:text-white sm:text-xs sm:tracking-[0.08em] hover:border-white/15 hover:text-white";
+const triggerBase =
+  "group flex cursor-pointer touch-manipulation select-none items-center gap-2 rounded-xl border-2 border-border px-6 py-3 text-muted transition-all hover:border-accent hover:text-accent has-[:checked]:border-accent has-[:checked]:bg-accent has-[:checked]:text-white";
 
 export default function AboutPillarsTabs({
   pillars,
@@ -47,49 +56,53 @@ export default function AboutPillarsTabs({
   defaultKey?: PillarKey;
 }) {
   return (
-    <div className="group/pillars min-w-0 rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5 md:p-6">
+    <div className="group/pillars min-w-0 w-full">
       <div
         role="radiogroup"
         aria-label="Pillars"
-        className="mb-5 flex min-w-0 flex-wrap gap-2"
+        className="mb-8 flex min-w-0 flex-wrap gap-3 border-b border-border pb-4"
       >
-        {TAB_CONFIG.map(({ key, inputId }) => (
-          <label key={key} className={labelClassName}>
-            <input
-              type="radio"
-              name="about-pillars"
-              id={inputId}
-              defaultChecked={key === defaultKey}
-              className="sr-only"
-            />
-            {pillars[key].title}
-          </label>
-        ))}
+        {TAB_CONFIG.map(({ key, inputId }) => {
+          const Icon = PILLAR_ICONS[key];
+          return (
+            <label key={key} className={triggerBase}>
+              <input
+                type="radio"
+                name="about-pillars"
+                id={inputId}
+                defaultChecked={key === defaultKey}
+                className="sr-only"
+              />
+              <Icon className="h-5 w-5 shrink-0" aria-hidden />
+              <span className="font-medium">{pillars[key].title}</span>
+            </label>
+          );
+        })}
       </div>
 
       <div
-        className="hidden min-h-[8.5rem] min-w-0 group-has-[#about-pillar-software:checked]/pillars:block"
+        className="hidden min-h-[8.5rem] min-w-0 rounded-2xl border border-border bg-gradient-to-br from-surface to-peach p-8 group-has-[#about-pillar-software:checked]/pillars:block"
         role="region"
         aria-label={pillars.software.title}
       >
         <PillarBody pillar={pillars.software} />
       </div>
       <div
-        className="hidden min-h-[8.5rem] min-w-0 group-has-[#about-pillar-dataai:checked]/pillars:block"
+        className="hidden min-h-[8.5rem] min-w-0 rounded-2xl border border-border bg-gradient-to-br from-surface to-peach p-8 group-has-[#about-pillar-dataai:checked]/pillars:block"
         role="region"
         aria-label={pillars.dataAI.title}
       >
         <PillarBody pillar={pillars.dataAI} />
       </div>
       <div
-        className="hidden min-h-[8.5rem] min-w-0 group-has-[#about-pillar-people:checked]/pillars:block"
+        className="hidden min-h-[8.5rem] min-w-0 rounded-2xl border border-border bg-gradient-to-br from-surface to-peach p-8 group-has-[#about-pillar-people:checked]/pillars:block"
         role="region"
         aria-label={pillars.people.title}
       >
         <PillarBody pillar={pillars.people} />
       </div>
       <div
-        className="hidden min-h-[8.5rem] min-w-0 group-has-[#about-pillar-process:checked]/pillars:block"
+        className="hidden min-h-[8.5rem] min-w-0 rounded-2xl border border-border bg-gradient-to-br from-surface to-peach p-8 group-has-[#about-pillar-process:checked]/pillars:block"
         role="region"
         aria-label={pillars.process.title}
       >

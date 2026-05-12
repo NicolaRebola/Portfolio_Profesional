@@ -3,7 +3,7 @@ import type { SocialLink } from "@/app/_types/portfolio";
 import Reveal from "@/app/_components/Reveal";
 
 function SocialIcon({ icon }: { icon: string }) {
-  const className = "h-4 w-4 shrink-0 text-cyan-300/90";
+  const className = "h-8 w-8 shrink-0 text-muted transition-colors group-hover:text-accent";
   switch (icon) {
     case "github":
       return (
@@ -19,7 +19,16 @@ function SocialIcon({ icon }: { icon: string }) {
       );
     case "email":
       return (
-        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <svg
+          className={className}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden
+        >
           <rect width="20" height="16" x="2" y="4" rx="2" />
           <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
         </svg>
@@ -41,36 +50,35 @@ export default function Footer({
   return (
     <footer
       id="contact"
-      className="mx-auto w-full max-w-6xl border-t border-white/[0.06] px-6 py-16"
+      className="w-full bg-gradient-to-b from-card to-peach px-6 py-24 lg:px-12"
     >
-      <Reveal>
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8">
-          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <div>
-              <h2 className="font-[var(--font-syne)] text-2xl font-bold tracking-[-0.02em] text-white/95">
-                {title}
-              </h2>
-              <p className="mt-2 text-sm text-white/60">{rights}</p>
-            </div>
+      <div className="mx-auto max-w-5xl text-center">
+        <Reveal>
+          <h2 className="font-[var(--font-syne)] text-4xl font-bold tracking-[-0.02em] text-foreground md:text-5xl lg:text-6xl">
+            {title}
+          </h2>
+        </Reveal>
 
-            <ul className="flex flex-wrap items-center gap-3">
-              {contacts.map((contact, i) => (
-                <li key={contact.id}>
-                  <Reveal delayMs={i * 70}>
-                    <Link
-                      href={contact.url}
-                      className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 font-mono text-xs tracking-[0.08em] text-white/80 hover:border-white/20 hover:text-white"
-                    >
-                      <SocialIcon icon={contact.icon} />
-                      {contact.label}
-                    </Link>
-                  </Reveal>
-                </li>
-              ))}
-            </ul>
+        <Reveal className="mt-12" delayMs={80}>
+          <div className="flex flex-wrap justify-center gap-6">
+            {contacts.map((contact, i) => (
+              <Reveal key={contact.id} delayMs={i * 70}>
+                <Link
+                  href={contact.url}
+                  className="group inline-flex rounded-2xl border-2 border-border bg-card p-6 transition-all hover:border-accent"
+                  aria-label={contact.label}
+                >
+                  <SocialIcon icon={contact.icon} />
+                </Link>
+              </Reveal>
+            ))}
           </div>
-        </div>
-      </Reveal>
+        </Reveal>
+
+        <Reveal className="mt-16 border-t border-border pt-12" delayMs={160}>
+          <p className="text-sm text-muted">{rights}</p>
+        </Reveal>
+      </div>
     </footer>
   );
 }
