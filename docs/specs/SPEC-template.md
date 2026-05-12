@@ -95,7 +95,7 @@ Do NOT explain the rationale of each decision: that goes in the corresponding AD
 <!--
 Architecture in a Spec is a map, not a manual:
 - Good: "We use Next.js App Router with [lang]/ routing for i18n (see ADR-0002)
-  and a custom JSON dictionary loader (see ADR-0001). Styles use Tailwind v4 with dark mode only."
+  and a custom JSON dictionary loader (see ADR-0001). Styles use Tailwind v4 with semantic tokens (see ADR-0006 for the current warm light theme)."
 - Bad:  Re-explaining why next-intl was discarded — that already lives in the ADR.
 
 Always link the related ADRs in the relevant places.
