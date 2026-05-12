@@ -1,6 +1,17 @@
 import type { ExperienceItem } from "@/app/_types/portfolio";
 import Reveal from "@/app/_components/Reveal";
 
+function splitPeriod(period: string): { range: string; duration: string } {
+  const parts = period.split(/\s*·\s*/);
+  if (parts.length < 2) {
+    return { range: period.trim(), duration: "" };
+  }
+  return {
+    range: parts[0]?.trim() ?? period,
+    duration: parts.slice(1).join(" · ").trim(),
+  };
+}
+
 export default function Experience({
   title,
   description,
@@ -15,68 +26,63 @@ export default function Experience({
   >;
 }) {
   return (
-    <section
-      id="experience"
-      className="mx-auto w-full max-w-6xl border-t border-white/[0.06] px-6 py-24"
-    >
-      <Reveal className="mb-10">
-        <p className="font-mono text-xs tracking-[0.18em] text-indigo-300/80">
-          EXPERIENCE
-        </p>
-        <h2 className="mt-3 font-[var(--font-syne)] text-3xl font-bold tracking-[-0.02em] text-white/95 md:text-5xl">
-          {title}
-        </h2>
-        <p className="mt-4 max-w-2xl text-base font-light leading-relaxed text-white/60">
-          {description}
-        </p>
-      </Reveal>
+    <section id="experience" className="w-full bg-background px-6 py-24 lg:px-12">
+      <div className="mx-auto max-w-5xl">
+        <Reveal className="mb-16">
+          <p className="mb-3 text-sm font-medium uppercase tracking-wider text-accent">{title}</p>
+          <h2 className="font-[var(--font-syne)] text-4xl font-bold tracking-[-0.02em] text-foreground md:text-5xl">
+            {description}
+          </h2>
+        </Reveal>
 
-      <div className="relative">
-        <Reveal
-          variant="rail"
-          aria-hidden
-          className="absolute left-4 top-2 h-[calc(100%-0.5rem)] w-px bg-gradient-to-b from-indigo-400 via-cyan-400 to-transparent"
-        />
+        <div className="space-y-12">
+          {items.map((item, i) => {
+            const { range, duration } = splitPeriod(item.period);
+            return (
+              <div key={item.itemId} className="relative border-l-2 border-border pl-8">
+                <div
+                  aria-hidden
+                  className="absolute left-[-9px] top-0 h-4 w-4 rounded-full bg-accent"
+                />
 
-        <ol className="relative m-0 list-none p-0">
-          {items.map((item, i) => (
-            <li key={item.itemId} className="pb-12">
-              <Reveal className="grid grid-cols-[2rem_1fr] gap-x-4" delayMs={i * 110}>
-                <div className="flex justify-center">
-                  <div
-                    aria-hidden="true"
-                    className="mt-[0.45rem] h-2.5 w-2.5 rounded-full bg-indigo-400 shadow-[0_0_0_3px_rgba(0,0,0,1),0_0_0_4px_rgba(99,102,241,0.35)]"
-                  />
-                </div>
+                <Reveal delayMs={i * 110}>
+                  <h3 className="mb-3 font-[var(--font-syne)] text-2xl font-bold tracking-[-0.02em] text-foreground">
+                    {item.role}
+                  </h3>
 
-                <div>
-                  <div className="flex flex-wrap items-center justify-start gap-x-4 gap-y-2 pt-5">
-                    <h3 className="font-[var(--font-syne)] text-xl font-bold tracking-[-0.02em] text-white/95">
-                      {item.role}
-                    </h3>
-
-                    <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-2.5 py-1 font-mono text-xs text-cyan-300">
-                      {item.period}
+                  <div className="mb-6 flex flex-wrap items-center gap-2">
+                    <span className="rounded-full border border-border bg-peach px-3 py-1 text-sm text-muted">
+                      {range}
                     </span>
+                    {duration ? (
+                      <>
+                        <span className="text-accent" aria-hidden>
+                          ·
+                        </span>
+                        <span className="rounded-full border border-success-border bg-success-bg px-3 py-1 text-sm text-success-text">
+                          {duration}
+                        </span>
+                      </>
+                    ) : null}
                   </div>
 
-                  <p className="mt-3 max-w-3xl text-sm leading-relaxed text-white/65">
-                    {item.content.summary}
-                  </p>
+                  <p className="max-w-3xl leading-relaxed text-muted">{item.content.summary}</p>
 
-                  <ul className="mt-4 space-y-2 text-sm leading-relaxed text-white/70">
+                  <ul className="mt-4 space-y-3">
                     {item.content.bullets.map((b) => (
-                      <li key={b} className="flex gap-2">
-                        <span className="mt-[0.35rem] h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-300/80" />
+                      <li key={b} className="flex gap-3 leading-relaxed text-muted">
+                        <span className="mt-1 shrink-0 text-accent" aria-hidden>
+                          →
+                        </span>
                         <span>{b}</span>
                       </li>
                     ))}
                   </ul>
-                </div>
-              </Reveal>
-            </li>
-          ))}
-        </ol>
+                </Reveal>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

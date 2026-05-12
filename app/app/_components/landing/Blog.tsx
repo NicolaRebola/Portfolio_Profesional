@@ -12,36 +12,28 @@ export default function Blog({
   banner: string;
 }) {
   return (
-    <section
-      id="blog"
-      className="mx-auto w-full max-w-6xl border-t border-white/[0.06] px-6 py-24"
-    >
-      <Reveal className="mb-10">
-        <p className="font-mono text-xs tracking-[0.18em] text-indigo-300/80">
-          BLOG
-        </p>
-        <h2 className="mt-3 font-[var(--font-syne)] text-3xl font-bold tracking-[-0.02em] text-white/95 md:text-5xl">
-          {title}
-        </h2>
-        <p className="mt-4 max-w-2xl text-base font-light leading-relaxed text-white/60">
-          {description}
-        </p>
-      </Reveal>
+    <section id="blog" className="w-full bg-background px-6 py-24 lg:px-12">
+      <div className="mx-auto max-w-5xl">
+        <Reveal className="mb-16">
+          <p className="mb-3 text-sm font-medium uppercase tracking-wider text-accent">{title}</p>
+          <h2 className="font-[var(--font-syne)] text-4xl font-bold tracking-[-0.02em] text-foreground md:text-5xl">
+            {description}
+          </h2>
+        </Reveal>
 
-      <Reveal delayMs={100}>
-        <div
-          role="status"
-          aria-live="polite"
-          className="rounded-2xl border border-white/10 bg-white/5 p-8 md:p-10"
-        >
-          <span className="inline-flex rounded-full border border-cyan-400/20 bg-cyan-400/10 px-2.5 py-1 font-mono text-xs text-cyan-300">
-            {comingSoon}
-          </span>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/70">
-            {banner}
-          </p>
-        </div>
-      </Reveal>
+        <Reveal delayMs={100}>
+          <div
+            role="status"
+            aria-live="polite"
+            className="rounded-2xl border border-border bg-card p-10 md:p-12"
+          >
+            <span className="mb-6 inline-block rounded-full bg-peach px-4 py-2 text-sm font-medium text-accent">
+              {comingSoon}
+            </span>
+            <p className="max-w-2xl text-lg leading-relaxed text-muted">{banner}</p>
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }
