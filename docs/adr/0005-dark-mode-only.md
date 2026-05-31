@@ -1,5 +1,5 @@
 ---
-status: "Accepted"
+status: "Superseded by [ADR-0006](./0006-warm-light-theme-default.md)"
 date: 2026-05-07
 deciders: "Nicola Rebola"
 tags: "design, theming, scope"

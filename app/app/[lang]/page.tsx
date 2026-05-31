@@ -8,7 +8,6 @@ import Stack from "../_components/landing/Stack";
 import { experience } from "../_data/experience";
 import { socialLinks } from "../_data/social";
 import { stack } from "../_data/stack";
-import { stats } from "../_data/stats";
 import { getDictionary } from "../_i18n/getDictionary";
 import type { ExperienceItemId } from "../_types/portfolio";
 
@@ -29,28 +28,22 @@ export default async function HomePage({ params }: { params: Promise<{ lang: "es
     content: getExperienceDescription(item.itemId)
   }));
 
-  const mappedStats = stats.map((s) => ({
-    ...s,
-    label: dict.stats.labels[s.id],
-  }));
-
   return (
-    <div className="flex w-full max-w-full min-w-0 flex-col gap-4 overflow-x-hidden px-4 py-4 sm:px-5 sm:py-5">
-      <Nav lang={lang} />
+    <div className="flex min-w-0 w-full max-w-full flex-col overflow-x-hidden">
+      <Nav lang={lang} nav={dict.nav} />
       <Hero
         tag={dict.hero.eyebrow}
         titlePlain={dict.hero.title}
         titleGradient={dict.hero.subtitle}
-        subtitle={dict.hero.subtitle}
+        description={dict.hero.description}
         ctaPrimary={{ label: dict.hero.ctaPrimary.label, href: dict.hero.ctaPrimary.href }}
         ctaSecondary={{ label: dict.hero.ctaSecondary.label, href: dict.hero.ctaSecondary.href }}
       />
       <About
-        title={dict.about.title}
+        eyebrow={dict.nav.about}
+        headline={dict.about.headline}
         description={dict.about.description}
         paragraphs={dict.about.paragraphs}
-        statsTitle={dict.stats.title}
-        stats={mappedStats}
         pillars={dict.about.pillars}
       />
       <Experience

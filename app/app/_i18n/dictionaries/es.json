@@ -16,8 +16,16 @@
       "Portfolio"
     ]
   },
+  "nav": {
+    "about": "Sobre mí",
+    "experience": "Experiencia",
+    "stack": "Stack",
+    "blog": "Blog",
+    "contact": "Contacto"
+  },
   "about": {
     "title": "Quién soy",
+    "headline": "Creando valor, no complejidad",
     "description": "Negocios primero, tecnología segundo.",
     "paragraphs": [
       "Para que un producto digital sea realmente confiable e impacte al negocio, no alcanza con escribir buen código. Mi trabajo es alinear cuatro pilares que se potencian entre sí: el software que lo sostiene, los datos y la IA que lo vuelven inteligente, las personas que lo construyen y la forma en que la organización trabaja para entregarlo con calidad.",
@@ -63,6 +71,7 @@
     "eyebrow": "Disponible para proyectos selectos",
     "title": "Arquitecto de Software",
     "subtitle": "Pensador de sistemas.",
+    "description": "Construyo sistemas escalables que transforman ideas complejas en soluciones elegantes.",
     "ctaPrimary": {
       "label": "Ver mi trabajo ↓",
       "href": "#experience"

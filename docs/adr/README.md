@@ -63,7 +63,8 @@ The living template is in [`0000-template.md`](./0000-template.md). Copy it and 
 | [0002](./0002-routing-lang-segment.md) | Route i18n via `[lang]/` segment with `generateStaticParams` | Accepted | 2026-05-07 |
 | [0003](./0003-postbuild-root-redirect.md) | Generate a root-path redirect via a postbuild Node script | Accepted | 2026-05-07 |
 | [0004](./0004-css-scroll-driven-animations.md) | Use CSS-only scroll-driven animations with progressive enhancement | Accepted | 2026-05-07 |
-| [0005](./0005-dark-mode-only.md) | Ship dark mode only for v1, with tokens for a future light mode | Accepted | 2026-05-07 |
+| [0005](./0005-dark-mode-only.md) | Ship dark mode only for v1, with tokens for a future light mode | Superseded by [ADR-0006](./0006-warm-light-theme-default.md) | 2026-05-07 |
+| [0006](./0006-warm-light-theme-default.md) | Default landing theme: warm light palette (token-based) | Accepted | 2026-05-12 |
 
 New ADRs are added here as they are created.
 

@@ -16,8 +16,16 @@
       "Portfolio"
     ]
   },
+  "nav": {
+    "about": "About",
+    "experience": "Experience",
+    "stack": "Stack",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
   "about": {
     "title": "About",
+    "headline": "Creating value, not complexity",
     "description": "Business first, technology second.",
     "paragraphs": [
       "To build a reliable digital product that truly moves the business forward, good code alone isn’t enough. My job is to align four pillars that reinforce each other: the software foundation, the data and AI that make it smarter, the people who build it, and the way the organization operates to ship with quality.",
@@ -63,6 +71,7 @@
     "eyebrow": "Available for select projects",
     "title": "Software Architect",
     "subtitle": "Systems Thinker.",
+    "description": "I build scalable systems that transform complex ideas into elegant solutions.",
     "ctaPrimary": {
       "label": "View my work ↓",
       "href": "#experience"
