@@ -11,6 +11,15 @@ const firebaseConfig = {
 };
 
 const hasFirebaseConfig = Object.values(firebaseConfig).every(Boolean);
+const missingFirebaseConfigKeys = Object.entries(firebaseConfig)
+  .filter(([, value]) => !value)
+  .map(([key]) => key);
+
+if (missingFirebaseConfigKeys.length) {
+  console.warn("[Firebase] Missing config keys:", missingFirebaseConfigKeys);
+} else {
+  console.info("[Firebase] Config loaded for project:", firebaseConfig.projectId);
+}
 
 const app = hasFirebaseConfig
   ? getApps().length
@@ -18,4 +27,14 @@ const app = hasFirebaseConfig
     : initializeApp(firebaseConfig)
   : null;
 
+if (app) {
+  console.info("[Firebase] App initialized:", app.name);
+} else {
+  console.warn("[Firebase] App was not initialized.");
+}
+
 export const db = app ? getFirestore(app) : null;
+
+if (db) {
+  console.info("[Firebase] Firestore connection ready.");
+}

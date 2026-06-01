@@ -41,6 +41,59 @@ jobs:
               ;;
           esac
 
+      - name: Configure Firebase environment
+        working-directory: .
+        env:
+          FIREBASE_API_KEY_SECRET: ${{ secrets.FIREBASE_API_KEY }}
+          FIREBASE_AUTH_DOMAIN_SECRET: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
+          FIREBASE_PROJECT_ID_SECRET: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_STORAGE_BUCKET_SECRET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+          FIREBASE_MESSAGING_SENDER_ID_SECRET: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
+          FIREBASE_APP_ID_SECRET: ${{ secrets.FIREBASE_APP_ID }}
+          FIREBASE_API_KEY_VAR: ${{ vars.NEXT_PUBLIC_FIREBASE_API_KEY }}
+          FIREBASE_AUTH_DOMAIN_VAR: ${{ vars.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN }}
+          FIREBASE_PROJECT_ID_VAR: ${{ vars.NEXT_PUBLIC_FIREBASE_PROJECT_ID }}
+          FIREBASE_STORAGE_BUCKET_VAR: ${{ vars.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET }}
+          FIREBASE_MESSAGING_SENDER_ID_VAR: ${{ vars.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID }}
+          FIREBASE_APP_ID_VAR: ${{ vars.NEXT_PUBLIC_FIREBASE_APP_ID }}
+        run: |
+          NEXT_PUBLIC_FIREBASE_API_KEY="${FIREBASE_API_KEY_SECRET:-$FIREBASE_API_KEY_VAR}"
+          NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="${FIREBASE_AUTH_DOMAIN_SECRET:-$FIREBASE_AUTH_DOMAIN_VAR}"
+          NEXT_PUBLIC_FIREBASE_PROJECT_ID="${FIREBASE_PROJECT_ID_SECRET:-$FIREBASE_PROJECT_ID_VAR}"
+          NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="${FIREBASE_STORAGE_BUCKET_SECRET:-$FIREBASE_STORAGE_BUCKET_VAR}"
+          NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="${FIREBASE_MESSAGING_SENDER_ID_SECRET:-$FIREBASE_MESSAGING_SENDER_ID_VAR}"
+          NEXT_PUBLIC_FIREBASE_APP_ID="${FIREBASE_APP_ID_SECRET:-$FIREBASE_APP_ID_VAR}"
+
+          missing=0
+          for name in \
+            NEXT_PUBLIC_FIREBASE_API_KEY \
+            NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN \
+            NEXT_PUBLIC_FIREBASE_PROJECT_ID \
+            NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET \
+            NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID \
+            NEXT_PUBLIC_FIREBASE_APP_ID
+          do
+            if [ -z "${!name}" ]; then
+              echo "::error::Missing $name. Add it as a GitHub secret FIREBASE_* or repository variable NEXT_PUBLIC_FIREBASE_*."
+              missing=1
+            fi
+          done
+
+          if [ "$missing" -ne 0 ]; then
+            exit 1
+          fi
+
+          {
+            echo "NEXT_PUBLIC_FIREBASE_API_KEY=$NEXT_PUBLIC_FIREBASE_API_KEY"
+            echo "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=$NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN"
+            echo "NEXT_PUBLIC_FIREBASE_PROJECT_ID=$NEXT_PUBLIC_FIREBASE_PROJECT_ID"
+            echo "NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=$NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET"
+            echo "NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=$NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID"
+            echo "NEXT_PUBLIC_FIREBASE_APP_ID=$NEXT_PUBLIC_FIREBASE_APP_ID"
+          } >> "$GITHUB_ENV"
+
+          echo "Firebase config loaded for project: $NEXT_PUBLIC_FIREBASE_PROJECT_ID"
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -53,13 +106,6 @@ jobs:
 
       - name: Build Next.js
         run: npm run build
-        env:
-          NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
-          NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
-          NEXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
-          NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
-          NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
-          NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
 
       - name: Add .nojekyll
         run: touch out/.nojekyll
