@@ -22,18 +22,25 @@ function resolveEnvironment(location: Location): PortfolioEnvironment {
 
 export default function VisitTracker() {
   useEffect(() => {
+    console.info("[VisitTracker] Mounted.");
+
     if (!db) {
+      console.warn("[VisitTracker] Firestore is not available. Visit will not be tracked.");
       return;
     }
 
     const environment = resolveEnvironment(window.location);
     const sessionKey = `${VISIT_SESSION_KEY_PREFIX}:${environment}`;
 
-    if (window.sessionStorage.getItem(sessionKey)) {
+    if (window.localStorage.getItem(sessionKey)) {
+      console.info("[VisitTracker] Visit already tracked for this browser:", environment);
       return;
     }
 
-    window.sessionStorage.setItem(sessionKey, "true");
+    console.info("[VisitTracker] Tracking visit:", {
+      environment,
+      path: window.location.pathname,
+    });
 
     void addDoc(collection(db, VISIT_COLLECTION), {
       environment,
@@ -45,8 +52,11 @@ export default function VisitTracker() {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       createdAt: serverTimestamp(),
     })
+      .then((documentReference) => {
+        window.localStorage.setItem(sessionKey, "true");
+        console.info("[VisitTracker] Visit tracked:", documentReference.id);
+      })
       .catch((error: unknown) => {
-        window.sessionStorage.removeItem(sessionKey);
         console.error("[VisitTracker] Failed to track portfolio visit:", error);
       });
   }, []);
