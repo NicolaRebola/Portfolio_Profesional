@@ -1,6 +1,5 @@
 ---
 status: "Proposed"
-date: YYYY-MM-DD
 deciders: "{name(s) of who is making the decision}"
 consulted: "{optional — people consulted with relevant expertise}"
 informed: "{optional — people who receive the decision}"

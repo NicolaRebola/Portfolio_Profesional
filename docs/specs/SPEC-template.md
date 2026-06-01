@@ -1,7 +1,6 @@
 ---
 status: "Draft"
 owner: "{name of who leads the implementation}"
-created: YYYY-MM-DD
 branch: "feature/{short-feature-name}"
 related_adrs:
   - "ADR-XXXX: {short title}"
