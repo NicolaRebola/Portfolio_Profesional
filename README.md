@@ -57,7 +57,9 @@ Deployments use **[peaceiris/actions-gh-pages](https://github.com/peaceiris/acti
 2. Under **Build and deployment** → **Source**, choose **Deploy from a branch** (not “GitHub Actions”).
 3. **Branch:** select **`gh-pages`**, folder **`/ (root)`**, then **Save**.
 
-Until you switch the source to **`gh-pages`**, pushes to `main` / `develop` will update that branch but **GitHub Pages will keep serving the previous source** (if it was still tied to Actions).
+Until you switch the source to **`gh-pages`**, pushes to `main` / `develop` will update that branch but **GitHub Pages will keep serving the previous source** (for example `/docs` on `main`).
+
+If the workflow **“pages build and deployment”** fails with `Invalid Date: '"YYYY-MM-DD"'` in `docs/adr/0000-template.md`, Pages is still building **`/docs` with Jekyll**, not your Next export. Fix: **Settings → Pages → Source → Deploy from a branch → `gh-pages` → `/ (root)`**. Do **not** use `/docs` on `main` as the published site.
 
 ### Environment variables
 

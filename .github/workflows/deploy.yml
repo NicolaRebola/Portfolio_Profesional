@@ -70,7 +70,8 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./app/out
-          keep_files: true
+          # Replace branch root so stale files (e.g. old docs/) do not trigger Jekyll on Pages.
+          keep_files: false
 
       - name: Deploy UAT (gh-pages /uat)
         if: github.ref == 'refs/heads/develop'
