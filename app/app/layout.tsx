@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { SITE_METADATA_BASE } from "@/app/_constants/site";
+import VisitTracker from "@/app/_components/VisitTracker";
 import { Syne, DM_Sans, DM_Mono } from "next/font/google";
 import "@/app/globals.css";
 
@@ -48,6 +49,7 @@ export default function RootLayout({
       className={`${dmSans.variable} ${dmMono.variable} ${syne.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        <VisitTracker />
         {children}
       </body>
     </html>
