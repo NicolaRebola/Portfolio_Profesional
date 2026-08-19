@@ -1,8 +1,7 @@
 # Documentación del repo (ADRs, specs). El sitio publicado es el export estático
 # de Next.js en la rama gh-pages (ver README).
 #
-# Si en Settings → Pages la fuente sigue siendo /docs, Jekyll intenta compilar
-# los templates con placeholders (YYYY-MM-DD) y falla. Los excluimos aquí.
+# docs/.nojekyll desactiva Jekyll si Pages apunta a /docs. Estos excludes son respaldo.
 exclude:
   - adr/0000-template.md
   - specs/SPEC-template.md
