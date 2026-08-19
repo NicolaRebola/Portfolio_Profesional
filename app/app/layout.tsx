@@ -3,6 +3,7 @@ import { SITE_METADATA_BASE } from "@/app/_constants/site";
 import VisitTracker from "@/app/_components/VisitTracker";
 import { Syne, DM_Sans, DM_Mono } from "next/font/google";
 import "@/app/globals.css";
+import { GoogleTagManager } from '@next/third-parties/google';
 
 const syne = Syne({
   variable: "--font-syne",
@@ -52,6 +53,7 @@ export default function RootLayout({
         <VisitTracker />
         {children}
       </body>
+      <GoogleTagManager gtmId="GTM-PBH98JT6" />
     </html>
   );
 }
